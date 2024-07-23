@@ -1,0 +1,49 @@
+
+.container-bao-hanh{
+    padding-top: 170px;
+    background-color: #fff;
+}
+.container-bao-hanh-wrap{
+    display: inline-block;
+    position: relative;
+    left: 18%;
+    width: 1000px;
+}
+
+
+
+.bao-hanh-img{
+    width: 100%;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 3rem;
+}
+
+p {
+    text-align: justify;
+    margin: 20px 0;
+    font-size: 1.4rem;
+}
+
+h2 {
+    color: #111;
+    margin-top: 30px;
+    font-size: 1.6rem;
+}
+
+ul, ol {
+    font-size: 1.2rem;
+    margin-left: 20px;
+}
+
+ul li, ol li {
+    margin-bottom: 10px;
+}
+
+ul li ol {
+    margin-top: 10px;
+}
+
