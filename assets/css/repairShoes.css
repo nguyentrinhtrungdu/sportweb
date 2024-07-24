@@ -1,0 +1,63 @@
+.title {
+    background-color: #fff;
+    color: #256;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 160px 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center items vertically */
+    flex-direction: column; /* Align items vertically */
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.5;
+    height: 700px;
+    background-image: url('https://th.bing.com/th/id/OIP.auv8r1n7qhNs5JCj48dSbgHaJH?rs=1&pid=ImgDetMain');
+}
+
+.title-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.title-text {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.title-text + .title-text {
+    margin-top: 20px; /* Increase space between h1 elements */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px 50px 70px 50px;
+}
+
+.text-container {
+    color: black;
+    font-size: 20px; /* Sửa lại font-size */
+    line-height: 30px;
+    margin-right: 50px ;
+    width: 50%;
+}
+.text-container p:nth-last-of-type(1) {
+    color: rgb(255, 0, 17) /* Thay đổi màu văn bản của đoạn cuối cùng */
+}
+
+
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-content {
+    width: 800px; /* Hoặc thay đổi kích thước theo ý muốn */
+    height: auto; /* Đảm bảo tỷ lệ ảnh giữ nguyên */
+    max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần tử chứa */
+}
