@@ -1,0 +1,164 @@
+.workshop{
+    background-color: #fff;
+    color: #256;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 160px 0 0 0;
+}
+
+.workshop-tiltle {
+    line-height: 1.5; /* Thay đổi giá trị này để điều chỉnh khoảng cách */
+    text-align: left;
+    font-size: 18px;
+}
+.workshop-tiltle .line-1 {
+    margin-bottom: 10px; /* Thay đổi giá trị này để điều chỉnh khoảng cách */
+   
+    
+}
+
+.workshop-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang, tùy chọn */
+    margin:0 20px 0 20px;
+    background-color: #F0EFF2ff;
+}
+
+.workshop-content {
+ 
+}
+
+.workshop-tiltle h1 {
+    margin: 0; /* Loại bỏ margin mặc định của h1 */
+    padding: 140px 40px 140px 40px;
+    border-right: 5px solid rgba(22, 20, 20, 0.3);
+}
+.workshop-img {
+    position: relative; /* Đặt vị trí của phần tử chứa để ảnh có thể được dịch */
+    padding: 0 20px 0 0;
+    
+}
+.workshop-img img {
+   
+    height: auto; /* Giữ tỷ lệ khung hình */
+    width: 800px;
+    
+}
+.rule{
+    display: flex;
+    margin-top:140px;
+   margin-bottom: 140px;
+   
+
+}
+.rule-container{
+ 
+    line-height: 3rem;
+    padding: 50px 0 50px 80px; 
+    width: 80%;
+    margin-right: 80px;
+     
+}
+.rule-img-wrap{
+    width: 20%;
+    
+}
+.rule-img{
+ 
+    width: 250px;
+    padding: 3px 4px;
+
+}
+.rule-heading{
+    font-size: 2.8rem;
+}
+.rule-text{
+    font-size:1.8rem ;
+}
+
+.rule-im{
+    display: flex;
+    justify-content: center;
+    background-color: #F0EFF2ff;
+   
+   padding: 100px 0 100px 0;
+    
+}
+.img-extra{
+    width: 600px;
+    padding: 0 10px 0 10px;
+}
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+    
+    padding: 10px;
+    
+}
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.pricing-table, .pricing-table th, .pricing-table td {
+    border: 1px solid #000;
+}
+.pricing-table th, .pricing-table td {
+    padding: 10px;
+    text-align: center;
+}
+.pricing-table thead {
+    background-color: #000;
+    color: #fff;
+}
+.discount-table{
+    width: 100%;;
+   
+}
+.discount-table th, .discount-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #000;
+    
+    
+}
+.discount-table th{
+    color :#fff
+}
+.discount-table thead {
+    background-color: #000;
+    
+}
+.highlight {
+    background-color: #F0EFF2ff;
+}
+.note {
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 20px;
+}
+.phi-in{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 30px 0;
+}
+.header-text{
+    padding: 100px 0 20px 80px;
+    font-size: 2.8rem;
+}
+.left-table{
+     width: 45%;
+    margin: 0 auto;
+    font-size: 16px;
+            
+}
+.right-table{
+    width: 45%;
+   margin: 0 auto;
+   font-size: 16px;
+           
+}
