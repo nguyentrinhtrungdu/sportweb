@@ -3,7 +3,7 @@ include "database.php";
 ?>
 
 <?php
-class brand{
+class product{
     private $db;
 
     public function __construct()
@@ -11,6 +11,20 @@ class brand{
         $this -> db = new Database();
     }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function show_category(){
         $query = "SELECT * FROM tbl_category ORDER BY category_id DESC";
