@@ -4,6 +4,9 @@ include "slider.php";
 include "class/category_class.php";
 ?>
 
+
+
+
 <?php
     $category = new category;
     if($_SERVER['REQUEST_METHOD']==='POST'){

@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                     <label for="">Nhập tên sản phẩm <span style="color: red;">*</span></label>
                     <input name="product_name" required type="text">
                     <label for="">Chọn danh mục <span style="color: red;">*</span></label>
-                    <select name="category_id" id="">
+                    <select name="category_id" id="category_id">
                     <option value="#">--Chọn--</option>
                         <?php 
                         $show_category = $product -> show_category();
@@ -36,19 +36,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                         ?>
                     </select>
                     <label for="">Chọn loại sản phẩm <span style="color: red;">*</span></label>
-                    <select name="brand_id" id="">
+                    <select name="brand_id" id="brand_id">
                         <label for="">Chọn loại sản phẩm <span style="color: red;">*</span></label>
                         <option value="#">--Chọn--</option>
-                        <?php 
-                        $show_brand = $product -> show_brand();
-                        if ($show_brand){while($result=$show_brand -> fetch_assoc()){
-
-                       
-                        ?>
-                        <option value="<?php echo $result['brand_id'] ?>"><?php echo $result['brand_name'] ?></option>
-                        <?php 
-                         }}
-                        ?>
+                        
                     </select>
                     <label for="">Giá sản phẩm <span style="color: red;">*</span></label>
                     <input name="product_price" required type="text">
@@ -57,6 +48,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                     <label for="">Mô tả sản phẩm<span style="color: red;">*</span></label>
                     <textarea required name="product_desc" id="editor1" cols="30" rows="10"></textarea>
                     <label for="">Ảnh sản phẩm <span style="color: red;">*</span></label>
+                    <span style=" color:red"><?php if(isset($insert_product)){
+                        echo ($insert_product);
+                        } ?></span>
                     <input name="product_img" required type="file">
                     <label for="">Ảnh mô tả <span style="color: red;">*</span></label>
                     <input name="product_img_desc[]" required multiple type="file">
@@ -73,7 +67,22 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 <script>
                 // Replace the <textarea id="editor1"> with a CKEditor 4
                 // instance, using default configuration.
-                CKEDITOR.replace('editor1');
+                CKEDITOR.replace( 'editor1', {
+	filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
+	filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+} );
             </script>
 
+
+    <script>
+        $(document).ready(function(){
+            $('#category_id').change(function(){
+                // alert($(this).val())
+                var x =$(this).val();
+                $.get("productadd_ajax.php",{category_id:x},function(data){
+                    $("#brand_id").html(data);
+                })
+            })
+        })
+    </script>
 </html>

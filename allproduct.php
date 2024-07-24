@@ -50,8 +50,8 @@
                                 <li><a href="#"><input type="checkbox" name="brand" id="nike"><label for="nike">Nike</label></a></li>
                                 <li><a href="#"><input type="checkbox" name="brand" id="adidas"><label for="adidas">Adidas</label></a></li>
                                 <li><a href="#"><input type="checkbox" name="brand" id="puma"><label for="puma">Puma</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="mizuno"><label for="mizuno">Mizuno</label></a></li>                               
-                                <li><a href="#"><input type="checkbox" name="brand" id="kamito"><label for="kamito">Kamito</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="mizuno"><label for="mizuno">Mizuno</label></a></li>
+<li><a href="#"><input type="checkbox" name="brand" id="kamito"><label for="kamito">Kamito</label></a></li>
                                 <li><a href="#"><input type="checkbox" name="brand" id="zocker"><label for="zocker">Zocker</label></a></li>
                             </ul>
                     </nav>
@@ -105,7 +105,7 @@
                  </a>
              </div>
          </div>
-     </div>
+</div>
  
      <div class="home-product">
          <div class="grid__row">
@@ -153,7 +153,7 @@
 
             <div class="grid__column-2-4">
                 <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-008_81-01-01_5b45733e378145f1b9fc9343562e2901_1024x1024.jpg');"></div>
+<div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-008_81-01-01_5b45733e378145f1b9fc9343562e2901_1024x1024.jpg');"></div>
                     <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA ULTRA 5 PRO CAGE TT FORMULA - LAPIS LAZULI/PUMA WHITE/SUNSET GLOW 107889-01</h4>
                     <div class="home-product-item__price">
                         <span class="home-product-item__price-old">3.099.000đ</span>
@@ -194,6 +194,22 @@
                     
                     <div class="home-product-item__sale-off">
                         <span class="home-product-item__sale-off-percent">10%</span>
+<span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
                         <span class="home-product-item__sale-off-label">GIẢM</span>
                     </div>
                 </div>
@@ -204,6 +220,150 @@
                     <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
                     <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
                     <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+<span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+<div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+<span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+                    <div class="home-product-item__price">
+                        <span class="home-product-item__price-old">2.259.000đ</span>
+                        <span class="home-product-item__price-current">2.030.0000đ</span>
+                    </div>
+                    
+                    <div class="home-product-item__sale-off">
+                        <span class="home-product-item__sale-off-percent">10%</span>
+                        <span class="home-product-item__sale-off-label">GIẢM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid__column-2-4">
+                <div class="home-product-item">
+                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+<div class="home-product-item__price">
                         <span class="home-product-item__price-old">2.259.000đ</span>
                         <span class="home-product-item__price-current">2.030.0000đ</span>
                     </div>
@@ -249,7 +409,7 @@
 
             <div class="grid__column-2-4">
                 <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
+<div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
                     <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
                     <div class="home-product-item__price">
                         <span class="home-product-item__price-old">2.259.000đ</span>
@@ -289,167 +449,7 @@
                     </div>
                     
                     <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
-                        <span class="home-product-item__sale-off-label">GIẢM</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid__column-2-4">
-                <div class="home-product-item">
-                    <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                    <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
-                    <div class="home-product-item__price">
-                        <span class="home-product-item__price-old">2.259.000đ</span>
-                        <span class="home-product-item__price-current">2.030.0000đ</span>
-                    </div>
-                    
-                    <div class="home-product-item__sale-off">
-                        <span class="home-product-item__sale-off-percent">10%</span>
+<span class="home-product-item__sale-off-percent">10%</span>
                         <span class="home-product-item__sale-off-label">GIẢM</span>
                     </div>
                 </div>
@@ -490,7 +490,7 @@
              <div class="grid__column-2-4">
                  <div class="home-product-item">
                      <div class="home-product-item__img" style="background-image: url('https://product.hstatic.net/1000061481/product/anh_sp_add_web_3-02-02-01-01-01-01-01-01-01-01-01-01-01-01-01-01-01_4bf290d5f7974387ab4aa85a5ae7fa93_medium.jpg');"></div>
-                     <h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
+<h4 class="home-product-item__name">GIÀY ĐÁ BANH PUMA FUTURE 7 MATCH TT VOL. UP - WHITE-LUMINOUS BLUE-POISON PINK-FIZZY MELON-BLUEMAZING 108075-01</h4>
                      <div class="home-product-item__price">
                          <span class="home-product-item__price-old">1.659.000đ</span>
                          <span class="home-product-item__price-current">1.111.000đ</span>
