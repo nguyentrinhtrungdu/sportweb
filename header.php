@@ -1,3 +1,12 @@
+<?php
+include "config.php";
+include "database.php";
+
+$db = new Database();
+$query = "SELECT * FROM categories"; // Giả sử bảng của bạn tên là categories
+$categories = $db->select($query);
+?>
+
 <header class="header">
             <nav class="header__navbar">
                 <div class="header__navbar-logo">
