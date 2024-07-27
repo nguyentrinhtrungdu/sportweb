@@ -42,18 +42,13 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                         
                     </select>
                     <label for="">Giá sản phẩm <span style="color: red;">*</span></label>
-                    <input name="product_price" required type="text">
-                    <label for="">Giá khuyến mãi <span style="color: red;">*</span></label>
-                    <input name="product_price_new" required type="text">
-                    <label for="">Mô tả sản phẩm<span style="color: red;">*</span></label>
-                    <textarea required name="product_desc" id="editor1" cols="30" rows="10"></textarea>
+                    <input name="product_price" required type="text">             
                     <label for="">Ảnh sản phẩm <span style="color: red;">*</span></label>
                     <span style=" color:red"><?php if(isset($insert_product)){
                         echo ($insert_product);
                         } ?></span>
                     <input name="product_img" required type="file">
-                    <label for="">Ảnh mô tả <span style="color: red;">*</span></label>
-                    <input name="product_img_desc[]" required multiple type="file">
+                    
                     <button type="submit">Thêm</button>
                 </form>
             </div>

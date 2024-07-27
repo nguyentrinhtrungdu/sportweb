@@ -35,8 +35,7 @@ $show_product = $product->show_product();
                 <td><?php echo $result['category_name']; ?></td>
                 <td><?php echo $result['brand_name']; ?></td>
                 <td><?php echo $result['product_price']; ?></td>
-                <td><?php echo $result['product_price_new']; ?></td>
-                <td><img src="uploads/<?php echo $result['product_img']; ?>" alt="" width="80"></td>
+                <td><img src="./uploads<?php echo $result['product_img']; ?>" alt="" width="80"></td>
                 <td>
                     <a href="productedit.php?product_id=<?php echo $result['product_id']; ?>">Sửa</a> | 
                     <a href="productdelete.php?product_id=<?php echo $result['product_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</a>

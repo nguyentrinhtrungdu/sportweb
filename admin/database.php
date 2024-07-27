@@ -46,11 +46,14 @@ class Database {
         }
     }
 
-    public function delete($query) {
-        $this->connection->query($query);
 
-        if ($this->connection->error) {
-            die("Delete failed: " . $this->connection->error);
+    
+    public function delete($query) {
+        if ($this->connection->query($query) === TRUE) {
+            return true;
+        } else {
+           
+            return false; 
         }
     }
 }
