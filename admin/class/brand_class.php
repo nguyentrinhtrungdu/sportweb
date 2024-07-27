@@ -1,5 +1,5 @@
 <?php
-include "database.php";
+include_once __DIR__ . "/../database.php";
 ?>
 
 <?php
@@ -17,6 +17,12 @@ class brand{
         $result = $this -> db->select($query);
         return $result;
     }
+
+    public function get_all_brands() {
+        $query = "SELECT * FROM tbl_brand ORDER BY brand_id DESC";
+        return $this->db->select($query);
+    }
+    
     public function get_category($category_id) {
         $query = "SELECT * FROM tbl_category WHERE category_id= '$category_id'";
         $result = $this -> db->select($query);
