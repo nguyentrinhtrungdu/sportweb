@@ -1,4 +1,6 @@
 <?php
+session_start();
+ob_start();
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
 
@@ -15,6 +17,10 @@ $brandsByCategory = [];
 while ($brand = $brands->fetch_assoc()) {
     $brandsByCategory[$brand['category_id']][] = $brand;
 }
+
+// Check if user is logged in and their role
+$isLoggedIn = isset($_SESSION['user_id']);
+$isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 ?>
 
 <header class="header">
@@ -60,7 +66,7 @@ while ($brand = $brands->fetch_assoc()) {
                                             echo '/allproduct.php';
                                         } elseif ($brand['brand_name'] === 'GIÀY CỎ TỰ NHIÊN') {
                                             echo '/giaycotunhien.php';
-} elseif ($brand['brand_name'] === 'GIÀY CỎ NHÂN TẠO') {
+                                        } elseif ($brand['brand_name'] === 'GIÀY CỎ NHÂN TẠO') {
                                             echo '/giayconhantao.php';
                                         } elseif ($brand['brand_name'] === 'GIÀY FUTSAL') {
                                             echo '/futsal.php';
@@ -78,8 +84,7 @@ while ($brand = $brands->fetch_assoc()) {
                                             echo '/zocker.php';
                                         } elseif ($brand['brand_name'] === 'IN BALO - QUẦN ÁO') {
                                             echo '/service.php';
-                                        }
-                                         else {
+                                        } else {
                                             echo '/brand.php?id=' . htmlspecialchars($brand['brand_id']);
                                         }
                                     ?>">
@@ -92,12 +97,18 @@ while ($brand = $brands->fetch_assoc()) {
                 </li>
             <?php endwhile; ?>
         <?php endif; ?>
-
-        <ul class="header__navbar-list">          
-            <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate register-form">Đăng ký</li>
-            <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
         </ul>
-    </nav>
+        <ul class="header__navbar-list">
+            <?php if ($isLoggedIn): ?>
+                <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+                    <a href="./user/logout.php">Đăng xuất</a>
+                </li>
+            <?php else: ?>
+                <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate register-form">Đăng ký</li>
+                <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
+            <?php endif; ?>
+        </ul>
+
 
     <!-- Search -->
     <div class="header-with-search">
@@ -109,7 +120,7 @@ while ($brand = $brands->fetch_assoc()) {
                     <ul class="header__search-history-list">
                         <li class="header__search-history-item">
                             <a href="">Áo brazil</a>
-</li>
+                        </li>
                         <li class="header__search-history-item">
                             <a href="">Quần kaki</a>
                         </li>
@@ -132,7 +143,6 @@ while ($brand = $brands->fetch_assoc()) {
                         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
                         <ul class="header__cart-list-item">
                             <!-- Cart item -->
-                            
                             <li class="header__cart-item">
                                 <img src="https://d2308c8b.rocketcdn.me/wp-content/uploads/2022/03/20-06.jpeg" alt="" class="header__cart-img">
                                 <div class="header__cart-item-info">
