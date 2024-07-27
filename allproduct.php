@@ -10,29 +10,44 @@
 </head>
 <body>
     <?php
-    include ("./header.php");
-    include ("./admin/class/product_class.php");
+include ("./header.php");
+include_once __DIR__ . "/admin/class/category_class.php";
+include_once __DIR__ . "/admin/class/brand_class.php";
+include_once __DIR__ . "/admin/class/product_class.php";
 
-    // Instantiate the product class
-    $productClass = new product();
+// Instantiate the classes
+$productClass = new product();
+$categoryClass = new category();
+$brandClass = new brand();
 
-    // Fetch all products from the database
-    $all_products = $productClass->show_product(); // Ensure this method exists and returns products
-    ?>
+// Fetch all products
+$all_products = $productClass->show_product();
+
+// Fetch all categories
+$categories = $categoryClass->show_category();
+
+// Fetch all brands
+$brands = $brandClass->show_brand();
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
     <!-- container -->
     <div class="app__container">
         <div class="grid">
             <div class="grid__row app_content">
                 <div class="grid__column-2">
-                    <nav class="category">
-                        <h3 class="category__heading">
-                            <i class="category__heading-icon fa-solid fa-list"></i>
-                            Danh mục
-                        </h3>
-                        <ul class="category-list">
-                            <!-- Category items here -->
-                        </ul>
-                    </nav>
+                   
 
                     <nav class="category">
                         <h3 class="category__heading">
@@ -40,8 +55,13 @@
                             THƯƠNG HIỆU
                         </h3>
                         <ul class="brand-list">
-                            <!-- Brand items here -->
-                        </ul>
+                                <li><a href="#"><input type="checkbox" name="brand" id="nike"><label for="nike">Nike</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="adidas"><label for="adidas">Adidas</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="puma"><label for="puma">Puma</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="mizuno"><label for="mizuno">Mizuno</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="kamito"><label for="kamito">Kamito</label></a></li>
+                                <li><a href="#"><input type="checkbox" name="brand" id="zocker"><label for="zocker">Zocker</label></a></li>
+                            </ul>
                     </nav>
 
                     <nav class="category">
@@ -50,7 +70,12 @@
                             GIÁ
                         </h3>
                         <ul class="brand-list">
-                            <!-- Price filter items here -->
+                                <li><a href="#"><input type="checkbox" id="nike"><label for="nike">Tất cả</label></a></li>
+                                <li><a href="#"><input type="checkbox" id="adidas"><label for="adidas">0 VNĐ ~ 1.000.000 VNĐ</label></a></li>
+                                <li><a href="#"><input type="checkbox" id="puma"><label for="puma">1.000.000 VNĐ ~ 2.000.000 VNĐ</label></a></li>
+                                <li><a href="#"><input type="checkbox" id="mizuno"><label for="mizuno">2.000.000 VNĐ ~ 3.000.000VNĐ</label></a></li>                               
+                                <li><a href="#"><input type="checkbox" id="kamito"><label for="kamito">3.000.000 VNĐ ~ 5.000.000 VNĐ</label></a></li>
+                                <li><a href="#"><input type="checkbox" id="zocker"><label for="zocker">Trên 5.000.000 VNĐ</label></a></li>
                         </ul>
                     </nav>
 
@@ -74,19 +99,7 @@
                             </button>
                         </div>
 
-                        <div class="home-filter__page">
-                            <span class="home-filter__page-num">
-                                <span class="home-filter__page-current">1</span>/3
-                            </span>
-                            <div class="home-filter__page-control">
-                                <a href="#" class="home-filter__page-btn home-filter__page-btn-disabled">
-                                    <i class="home-filter__page-icon fa-solid fa-chevron-left"></i>
-                                </a>
-                                <a href="/allproductpage2.php" class="home-filter__page-btn">
-                                    <i class="home-filter__page-icon fa-solid fa-chevron-right"></i>
-                                </a>
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <div class="home-product">
@@ -95,7 +108,7 @@
                                 <?php while ($product = $all_products->fetch_assoc()): ?>
                                     <div class="grid__column-2-4">
                                         <div class="home-product-item">
-                                            <div class="home-product-item__img" style="background-image: url('.admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
+                                            <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
                                             <h4 class="home-product-item__name"><?php echo htmlspecialchars($product['product_name']); ?></h4>
                                             <div class="home-product-item__price home-product-item__price-no-sale">
                                                 <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
@@ -110,15 +123,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="pagination-container">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="allproductpage2.php">2</a></li>
-                            <li><a href="allproductpage3.php">3</a></li>
-                            <li><a href="allproductpage2.php">&raquo;</a></li>
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
         </div>

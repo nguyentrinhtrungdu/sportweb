@@ -36,7 +36,7 @@ while ($brand = $brands->fetch_assoc()) {
                         } elseif ($cat['category_name'] === 'THƯƠNG HIỆU') {
                             echo 'allproduct.php';
                         } elseif ($cat['category_name'] === 'PHỤ KIỆN') {
-                            echo 'allproduct.php';
+                            echo 'phukien.php';
                         } elseif ($cat['category_name'] === 'DỊCH VỤ') {
                             echo 'service.php';
                         } elseif ($cat['category_name'] === 'BẢO HÀNH') {
@@ -46,7 +46,7 @@ while ($brand = $brands->fetch_assoc()) {
                         }
                     ?>">
                         <?php echo htmlspecialchars($cat['category_name']); ?>
-                        <?php if (strtoupper($cat['category_name']) !== 'BẢO HÀNH' && strtoupper($cat['category_name']) !== 'SALE'): ?>
+                        <?php if (strtoupper($cat['category_name']) !== 'BẢO HÀNH' && strtoupper($cat['category_name' ]) !== 'SALE' && strtoupper($cat['category_name' ]) !== 'GIÀY BÓNG ĐÁ'): ?>
                             <i class="icon-down fa-sharp fa-solid fa-chevron-down"></i>
                         <?php endif; ?>
                     </a>
@@ -56,15 +56,8 @@ while ($brand = $brands->fetch_assoc()) {
                                 <li>
                                     <a href="<?php 
                                         // Adjust the link based on brand name
-                                        if ($brand['brand_name'] === 'TẤT CẢ SẢN PHẨM') {
-                                            echo '/allproduct.php';
-                                        } elseif ($brand['brand_name'] === 'GIÀY CỎ TỰ NHIÊN') {
-                                            echo '/giaycotunhien.php';
-} elseif ($brand['brand_name'] === 'GIÀY CỎ NHÂN TẠO') {
-                                            echo '/giayconhantao.php';
-                                        } elseif ($brand['brand_name'] === 'GIÀY FUTSAL') {
-                                            echo '/futsal.php';
-                                        } elseif ($brand['brand_name'] === 'GIÀY BÓNG ĐÁ NIKE') {
+                                        
+                                         if ($brand['brand_name'] === 'GIÀY BÓNG ĐÁ NIKE') {
                                             echo '/nike.php';
                                         } elseif ($brand['brand_name'] === 'GIÀY BÓNG ĐÁ ADIDAS') {
                                             echo '/adidas.php';
@@ -78,6 +71,16 @@ while ($brand = $brands->fetch_assoc()) {
                                             echo '/zocker.php';
                                         } elseif ($brand['brand_name'] === 'IN BALO - QUẦN ÁO') {
                                             echo '/service.php';
+                                        } elseif ($brand['brand_name'] === 'QUẢ BÓNG ĐÁ') {
+                                            echo '/bong.php';
+                                        } elseif ($brand['brand_name'] === 'GĂNG TAY') {
+                                            echo '/gang.php';
+                                        } elseif ($brand['brand_name'] === 'ÁO BÓNG ĐÁ') {
+                                            echo '/ao.php';
+                                        } elseif ($brand['brand_name'] === 'BALO TÚI XÁCH') {
+                                            echo '/balo.php';
+                                        } elseif ($brand['brand_name'] === 'SỮA CHỬA GIÀY') {
+                                            echo '/repairShoes.php';
                                         }
                                          else {
                                             echo '/brand.php?id=' . htmlspecialchars($brand['brand_id']);
