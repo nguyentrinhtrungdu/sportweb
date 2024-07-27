@@ -115,18 +115,14 @@
             </div>
         </div>
         
-
+        </div>
 
 
     <!-- footer -->
-    <?php
-        include ("./footer.php");
-        ?>
-    </div>
-    <!--Modal layout-->
-    <?php
-        include ("./modal.php");
-        ?>
+    <?php include ("./footer.php"); ?>
+
+<!-- Modal layout -->
+<?php include ("./modal.php"); ?>
       
     <script src="banner.js"></script>
 </body>
