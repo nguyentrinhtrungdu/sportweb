@@ -77,7 +77,7 @@
                         <div class="grid__row">
                             <?php if ($all_products && $all_products->num_rows > 0): ?>
                                 <?php while ($product = $all_products->fetch_assoc()): ?>
-                                    <?php if ($product['brand_name'] == "ÁO BÓNG ĐÁ	"): ?>
+                                    <?php if ($product['brand_name'] == "ÁO BÓNG ĐÁ"): ?>
                                         <div class="grid__column-2-4">
                                             <div class="home-product-item">
                                                 <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>

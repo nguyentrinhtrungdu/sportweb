@@ -41,9 +41,7 @@ while ($brand = $brands->fetch_assoc()) {
                             echo 'service.php';
                         } elseif ($cat['category_name'] === 'BẢO HÀNH') {
                             echo 'baohanh.php';
-                        } elseif ($cat['category_name'] === 'SALE') {
-                            echo 'allproduct.php';
-                        }
+                        } 
                     ?>">
                         <?php echo htmlspecialchars($cat['category_name']); ?>
                         <?php if (strtoupper($cat['category_name']) !== 'BẢO HÀNH' && strtoupper($cat['category_name' ]) !== 'SALE' && strtoupper($cat['category_name' ]) !== 'GIÀY BÓNG ĐÁ'): ?>
