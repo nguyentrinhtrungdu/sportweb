@@ -185,7 +185,7 @@
 .header-with-search{
     
     position: relative;
-    top:20%;
+    top:-6%;
     display: flex;
     right:-20%;
 }

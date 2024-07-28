@@ -15,6 +15,35 @@
 
     $productClass = new product();
     $all_products = $productClass->show_product();
+    // Get filters from query string if exists
+    $brand_filter = isset($_GET['brand']) ? $_GET['brand'] : 'GIÀY BÓNG ĐÁ MIZUNO';
+    $price_filter = isset($_GET['price']) ? $_GET['price'] : 'all';
+
+    // Define price ranges
+    $price_ranges = [
+        'all' => 'Tất cả',
+        '0-1000000' => '0 VNĐ ~ 1.000.000 VNĐ',
+        '1000000-2000000' => '1.000.000 VNĐ ~ 2.000.000 VNĐ',
+        '2000000-3000000' => '2.000.000 VNĐ ~ 3.000.000 VNĐ',
+        '3000000-5000000' => '3.000.000 VNĐ ~ 5.000.000 VNĐ',
+        '5000000-' => 'Trên 5.000.000 VNĐ'
+    ];
+
+    // Filter products based on brand and price range
+    $filtered_products = [];
+    while ($product = $all_products->fetch_assoc()) {
+        if ($product['brand_name'] === $brand_filter) {
+            if ($price_filter === 'all') {
+                $filtered_products[] = $product;
+            } else {
+                list($min_price, $max_price) = explode('-', $price_filter);
+                if (($min_price === '' || $product['product_price'] >= $min_price) &&
+                    ($max_price === '' || $product['product_price'] <= $max_price)) {
+                    $filtered_products[] = $product;
+                }
+            }
+        }
+    }
     ?>
 
     <!-- container -->
@@ -25,33 +54,20 @@
                     <nav class="category">
                         <h3 class="category__heading">
                             <i class="category__heading-icon fa-solid fa-list"></i>
-                            THƯƠNG HIỆU
-                        </h3>
-                        <ul class="brand-list">
-                            <li><a href="#"><input type="checkbox" name="brand" id="nike"><label for="nike">Nike</label></a></li>
-                            <li><a href="#"><input type="checkbox" name="brand" id="adidas"><label for="adidas">Adidas</label></a></li>
-                            <li><a href="#"><input type="checkbox" name="brand" id="puma"><label for="puma">Puma</label></a></li>
-                            <li><a href="#"><input type="checkbox" name="brand" id="mizuno"><label for="mizuno">Mizuno</label></a></li>
-                            <li><a href="#"><input type="checkbox" name="brand" id="kamito"><label for="kamito">Kamito</label></a></li>
-                            <li><a href="#"><input type="checkbox" name="brand" id="zocker"><label for="zocker">Zocker</label></a></li>
-                        </ul>
-                    </nav>
-
-                    <nav class="category">
-                        <h3 class="category__heading">
-                            <i class="category__heading-icon fa-solid fa-list"></i>
                             GIÁ
                         </h3>
                         <ul class="brand-list">
-                            <li><a href="#"><input type="checkbox" id="all"><label for="all">Tất cả</label></a></li>
-                            <li><a href="#"><input type="checkbox" id="range1"><label for="range1">0 VNĐ ~ 1.000.000 VNĐ</label></a></li>
-                            <li><a href="#"><input type="checkbox" id="range2"><label for="range2">1.000.000 VNĐ ~ 2.000.000 VNĐ</label></a></li>
-                            <li><a href="#"><input type="checkbox" id="range3"><label for="range3">2.000.000 VNĐ ~ 3.000.000VNĐ</label></a></li>
-                            <li><a href="#"><input type="checkbox" id="range4"><label for="range4">3.000.000 VNĐ ~ 5.000.000 VNĐ</label></a></li>
-                            <li><a href="#"><input type="checkbox" id="range5"><label for="range5">Trên 5.000.000 VNĐ</label></a></li>
+                            <?php foreach ($price_ranges as $range_key => $range_label): ?>
+                                <li>
+                                    <form action="mizuno.php" method="get">
+                                        <input type="hidden" name="brand" value="<?php echo htmlspecialchars($brand_filter); ?>">
+                                        <input type="checkbox" id="<?php echo $range_key; ?>" name="price" value="<?php echo $range_key; ?>" <?php echo ($price_filter == $range_key) ? 'checked' : ''; ?> onchange="this.form.submit()">
+                                        <label for="<?php echo $range_key; ?>"><?php echo $range_label; ?></label>
+                                    </form>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </nav>
-
                     <nav>
                         <a href="">
                             <img class="banner-sale" src="https://theme.hstatic.net/1000061481/1001035882/14/banner-left-col.jpg?v=1897" alt="">
@@ -75,20 +91,18 @@
 
                     <div class="home-product">
                         <div class="grid__row">
-                            <?php if ($all_products && $all_products->num_rows > 0): ?>
-                                <?php while ($product = $all_products->fetch_assoc()): ?>
-                                    <?php if ($product['brand_name'] == "GIÀY BÓNG ĐÁ MIZUNO"): ?>
-                                        <div class="grid__column-2-4">
-                                            <div class="home-product-item">
-                                                <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
-                                                <h4 class="home-product-item__name"><?php echo htmlspecialchars($product['product_name']); ?></h4>
-                                                <div class="home-product-item__price home-product-item__price-no-sale">
-                                                    <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
-                                                </div>
+                            <?php if (!empty($filtered_products)): ?>
+                                <?php foreach ($filtered_products as $product): ?>
+                                    <div class="grid__column-2-4">
+                                        <div class="home-product-item">
+                                            <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
+                                            <h4 class="home-product-item__name"><?php echo htmlspecialchars($product['product_name']); ?></h4>
+                                            <div class="home-product-item__price home-product-item__price-no-sale">
+                                                <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
                                             </div>
                                         </div>
-                                    <?php endif; ?>
-                                <?php endwhile; ?>
+                                    </div>
+                                <?php endforeach; ?>
                             <?php else: ?>
                                 <p>Không có sản phẩm nào.</p>
                             <?php endif; ?>
