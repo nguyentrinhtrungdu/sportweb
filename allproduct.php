@@ -150,13 +150,15 @@
                             <?php if (!empty($filtered_products)): ?>
                                 <?php foreach ($filtered_products as $product): ?>
                                     <div class="grid__column-2-4">
-                                        <div class="home-product-item">
-                                            <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
-                                            <h4 class="home-product-item__name"><?php echo htmlspecialchars($product['product_name']); ?></h4>
-                                            <div class="home-product-item__price home-product-item__price-no-sale">
-                                                <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
+                                        <a class="don-hang-link" href="donhang.php?product_id=<?php echo htmlspecialchars($product['product_id']); ?>" class="home-product-item-link">
+                                            <div class="home-product-item">
+                                                <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
+                                                <h4 class="home-product-item__name"><?php echo htmlspecialchars($product['product_name']); ?></h4>
+                                                <div class="home-product-item__price home-product-item__price-no-sale">
+                                                    <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>

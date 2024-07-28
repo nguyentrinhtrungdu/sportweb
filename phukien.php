@@ -107,6 +107,7 @@ $brands = $brandClass->show_brand();
                         <?php if ($all_products && $all_products->num_rows > 0): ?>
                                 <?php while ($product = $all_products->fetch_assoc()): ?>
                                     <?php if ($product['category_name'] == "PHỤ KIỆN"): ?>
+                                        <a class="don-hang-link" href="donhang.php?product_id=<?php echo $product['product_id']; ?>" class="home-product-item-link">
                                         <div class="grid__column-2-4">
                                             <div class="home-product-item">
                                                 <div class="home-product-item__img" style="background-image: url('admin/uploads/<?php echo htmlspecialchars($product['product_img'], ENT_QUOTES, 'UTF-8'); ?>');"></div>
@@ -115,6 +116,7 @@ $brands = $brandClass->show_brand();
                                                     <span class="home-product-item__price-current"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
                                                 </div>
                                             </div>
+                                    </a>
                                         </div>
                                     <?php endif; ?>
                                 <?php endwhile; ?>
