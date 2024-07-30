@@ -19,7 +19,7 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
             header('Location: ../admin/productlist.php');
         } else {
             // Regular user
-            header('Location: index.php');
+            header('Location:index.php');
         }
     } else {
         // Handle login error
@@ -45,10 +45,9 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
                                 <input type="text" class="auth-form__input" name="name" placeholder="Nhập tên của bạn" required>
                             </div>
                             <div class="auth-form__group">
-                                <input id="email" type="email" class="auth-form__input" name="email" placeholder="Email của bạn" required>
-                                <span id="emailError" class="auth-form__error" style="display: none;"></span> <!-- Vùng để hiển thị lỗi -->
-                            </div>
-
+    <input id="email" type="email" class="auth-form__input" name="email" placeholder="Email của bạn" required>
+    <span id="emailError" class="auth-form__error" style="display: none;"></span> <!-- Vùng để hiển thị lỗi -->
+</div>
                             <div class="auth-form__group">
                                 <input type="text" class="auth-form__input" name="address" placeholder="Nhập địa chỉ" required>
                             </div>

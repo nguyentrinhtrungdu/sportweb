@@ -1,0 +1,80 @@
+/* Ensure the container fills the available space */
+.app__container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Grid setup for product display */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px; /* Adjust spacing between columns */
+}
+
+.grid__row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px; /* Adjust spacing between columns */
+}
+
+.grid__column-2-4 {
+    width: 20%; /* 100% divided by 5 products per row */
+    padding: 0 15px; /* Spacing between columns */
+    box-sizing: border-box;
+}
+
+/* Product item styles */
+.home-product-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 30px; /* Space below each row of products */
+}
+
+.home-product-item__img {
+    height: 200px; /* Adjust based on your image aspect ratio */
+    background-size: cover;
+    background-position: center;
+}
+
+.home-product-item__name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.home-product-item__price {
+    font-size: 14px;
+    color: #333;
+}
+
+.home-product-item__price-current {
+    color: #e74c3c; /* Highlight the price color */
+}
+
+/* Adjustments for responsive design */
+@media (max-width: 1200px) {
+    .grid__column-2-4 {
+        width: 25%; /* Adjust to fit 4 products per row */
+    }
+}
+
+@media (max-width: 992px) {
+    .grid__column-2-4 {
+        width: 33.333%; /* Adjust to fit 3 products per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid__column-2-4 {
+        width: 50%; /* Adjust to fit 2 products per row */
+    }
+}
+
+@media (max-width: 576px) {
+    .grid__column-2-4 {
+        width: 100%; /* Adjust to fit 1 product per row */
+    }
+}

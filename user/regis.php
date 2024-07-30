@@ -10,14 +10,19 @@ if (isset($_POST['dangky'])) {
     $repass = $_POST['repass'];
 
     if (!empty($name) && !empty($email) && !empty($address) && !empty($pass) && $pass === $repass) {
-   
-
-        // Thực hiện câu truy vấn SQL
-        $sql = "INSERT INTO tbl_user (name, email, address, pass) VALUES (:name, :email, :address, :pass)";
-        
-        // Sử dụng PDO để chạy câu truy vấn này
+        // Kiểm tra xem email có tồn tại không
         $conn = connectbd();
-        if ($conn) {
+        $sql = "SELECT COUNT(*) AS count FROM tbl_user WHERE email = :email";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row['count'] > 0) {
+            echo "Email đã được sử dụng, vui lòng sử dụng email khác.";
+        } else {
+            // Thực hiện câu truy vấn SQL để đăng ký
+            $sql = "INSERT INTO tbl_user (name, email, address, pass) VALUES (:name, :email, :address, :pass)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
@@ -25,20 +30,16 @@ if (isset($_POST['dangky'])) {
             $stmt->bindParam(':pass', $pass);
 
             if ($stmt->execute()) {
-                // Lưu thông tin người dùng vào session
                 $_SESSION['user_id'] = $conn->lastInsertId();
                 $_SESSION['user_name'] = $name;
                 $_SESSION['user_email'] = $email;
                 
-                // Chuyển hướng người dùng đến trang chính (hoặc trang bạn muốn)    
-                header("Location: /index.php"); // Thay đổi đường dẫn phù hợp
+                header("Location: /index.php");
                 exit();
             } else {
                 $errorInfo = $stmt->errorInfo();
                 echo "Lỗi: " . $errorInfo[2];
             }
-        } else {
-            echo "Kết nối cơ sở dữ liệu thất bại";
         }
     } else {
         echo "Bạn cần điền đủ thông tin hoặc mật khẩu không khớp";
