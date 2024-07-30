@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (email.length > 0) {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'path/to/check_email.php', true); // Đường dẫn đến file check_email.php
+            xhr.open('POST', './user/check_email.php', true); // Đường dẫn đến file check_email.php
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             
             xhr.onreadystatechange = function() {

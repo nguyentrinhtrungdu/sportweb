@@ -1,17 +1,22 @@
 <?php
 function connectbd() {
-    $host = 'localhost';
-    $dbname = 'my_database';
-    $user = 'my_user';
-    $password = 'my_password';
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "user"; // Tên database của bạn
 
     try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
+        // Tạo kết nối PDO
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+        
+        // Thiết lập chế độ lỗi của PDO
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        return $conn; // Trả về đối tượng PDO
     } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-        exit();
+        // Hiển thị thông báo lỗi nếu kết nối thất bại
+        echo "Kết nối thất bại: " . $e->getMessage();
+        return null; // Trả về null nếu kết nối thất bại
     }
 }
 ?>

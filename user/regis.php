@@ -10,8 +10,7 @@ if (isset($_POST['dangky'])) {
     $repass = $_POST['repass'];
 
     if (!empty($name) && !empty($email) && !empty($address) && !empty($pass) && $pass === $repass) {
-        // Mã hóa mật khẩu
-        $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+   
 
         // Thực hiện câu truy vấn SQL
         $sql = "INSERT INTO tbl_user (name, email, address, pass) VALUES (:name, :email, :address, :pass)";
