@@ -7,6 +7,7 @@
 
 }
 
+
 a{
     text-decoration: none;
 }
@@ -19,9 +20,15 @@ header{
     height: 100px;
     width: 100vw;
     border-bottom: 2px solid #dddd;
-    align-items: center;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
+
+header a{
+    margin-right: 100px;
+    margin-top: 20px;
+}
+
 
 .admin-content{
     padding-top: 50px;
