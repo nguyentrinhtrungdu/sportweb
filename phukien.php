@@ -46,24 +46,7 @@ $brands = $brandClass->show_brand();
     <div class="app__container">
         <div class="grid">
             <div class="grid__row app_content">
-                <div class="grid__column-2">
-                   
-
-                    <nav class="category">
-                        <h3 class="category__heading">
-                            <i class="category__heading-icon fa-solid fa-list"></i>
-                            THƯƠNG HIỆU
-                        </h3>
-                        <ul class="brand-list">
-                                <li><a href="#"><input type="checkbox" name="brand" id="nike"><label for="nike">Nike</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="adidas"><label for="adidas">Adidas</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="puma"><label for="puma">Puma</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="mizuno"><label for="mizuno">Mizuno</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="kamito"><label for="kamito">Kamito</label></a></li>
-                                <li><a href="#"><input type="checkbox" name="brand" id="zocker"><label for="zocker">Zocker</label></a></li>
-                            </ul>
-                    </nav>
-
+                <div class="grid__column-2">                   
                     <nav class="category">
                         <h3 class="category__heading">
                             <i class="category__heading-icon fa-solid fa-list"></i>

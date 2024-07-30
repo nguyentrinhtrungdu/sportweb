@@ -27,7 +27,7 @@ $isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'
     <nav class="header__navbar">
         <div class="header__navbar-logo">
             <a href="/" class="header__navbar-link">
-                <img src="https://sgweb.vn/wp-content/uploads/2022/12/logo-shop-quan-ao5.png" alt="" class="header__navbar-img">
+                <img src="./assets/img/thunderkick_games.png" alt="" class="header__navbar-img">
             </a>
         </div>
 
@@ -37,7 +37,7 @@ $isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'
                 <li>
                     <a href="<?php 
                         // Adjust the link based on category name
-                        if ($cat['category_name'] === 'GIÀY BÓNG ĐÁ') {
+                        if ($cat['category_name'] === 'TẤT CẢ SẢN PHẨM') {
                             echo 'allproduct.php';
                         } elseif ($cat['category_name'] === 'THƯƠNG HIỆU') {
                             echo 'allproduct.php';
@@ -50,7 +50,7 @@ $isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'
                         } 
                     ?>">
                         <?php echo htmlspecialchars($cat['category_name']); ?>
-                        <?php if (strtoupper($cat['category_name']) !== 'BẢO HÀNH' && strtoupper($cat['category_name' ]) !== 'SALE' && strtoupper($cat['category_name' ]) !== 'GIÀY BÓNG ĐÁ'): ?>
+                        <?php if (strtoupper($cat['category_name']) !== 'BẢO HÀNH' && strtoupper($cat['category_name' ]) !== 'SALE' && strtoupper($cat['category_name' ]) !== 'TẤT CẢ SẢN PHẨM'): ?>
                             <i class="icon-down fa-sharp fa-solid fa-chevron-down"></i>
                         <?php endif; ?>
                     </a>

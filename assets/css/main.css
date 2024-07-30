@@ -20,7 +20,8 @@
     height: 120px;
     margin-top: 4px;
     position: fixed;
-    top: 1%;
+    top: 0;
+    left:4%;
 }
 
 .subnav{
