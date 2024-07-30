@@ -46,15 +46,28 @@ class Database {
         }
     }
 
-
-    
     public function delete($query) {
         if ($this->connection->query($query) === TRUE) {
             return true;
         } else {
-           
-            return false; 
+            return false;
         }
+    }
+
+    // New method to prepare statements
+    public function prepare($query) {
+        $stmt = $this->connection->prepare($query);
+
+        if ($this->connection->error) {
+            die("Prepare failed: " . $this->connection->error);
+        }
+
+        return $stmt;
+    }
+    
+    // Getter method to access the connection
+    public function getConnection() {
+        return $this->connection;
     }
 }
 ?>

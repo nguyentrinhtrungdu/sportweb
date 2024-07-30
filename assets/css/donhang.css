@@ -56,3 +56,34 @@
     background-color: #4caf50;
     color: white;
 }
+
+.product-detail__quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.product-detail__quantity label {
+    margin-right: 10px;
+}
+
+.product-detail__quantity input {
+    width: 50px;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 1rem;
+}
+
+.quantity-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.quantity-btn:active {
+    background-color: #e0e0e0;
+}
+
