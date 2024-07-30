@@ -3,14 +3,15 @@ ob_start();
 include "../sportweb/user/connectdb.php";
 include "../sportweb/user/user.php";
 
+
 if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
-    $user = $_POST['user'];
+    $email = $_POST['email'];
     $pass = $_POST['pass'];
-    $kq = getuserinfo($user, $pass);
+    $kq = getuserinfo($email, $pass);
     
     if ($kq) {
         $_SESSION['user_id'] = $kq[0]['id'];
-        $_SESSION['username'] = $kq[0]['user'];
+        $_SESSION['email'] = $kq[0]['email'];
         $_SESSION['role'] = $kq[0]['role'];
         
         if ($kq[0]['role'] == 1) {
@@ -38,27 +39,38 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
                         <h3 class="auth-form__heading">Đăng ký</h3>
                         <span class="auth-form__switch-btn js-switch-to">Đăng nhập</span>
                     </div>
-                    <div class="auth-form__form">
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Email của bạn">
+                    <form action="./user/regis.php" method="post">
+                        <div class="auth-form__form">
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="name" placeholder="Nhập tên của bạn" required>
+                            </div>
+                            <div class="auth-form__group">
+                                <input id="email" type="email" class="auth-form__input" name="email" placeholder="Email của bạn" required>
+                                <span id="emailError" class="auth-form__error" style="display: none;"></span> <!-- Vùng để hiển thị lỗi -->
+                            </div>
+
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="address" placeholder="Nhập địa chỉ" required>
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" class="auth-form__input" name="pass" placeholder="Password của bạn" required>
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" class="auth-form__input" name="repass" placeholder="Nhập lại password" required>
+                            </div>
                         </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Password của bạn">
+                        <div class="auth-form__aside">
+                            <p class="auth-form__policy-text">Bằng việc đăng ký, bạn đã đồng ý với Shopee về
+                                <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                                <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                            </p>
                         </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Nhập lại password">
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
+                            <button class="btn btn--primary" type="submit" name="dangky" value="Đăng ký">ĐĂNG KÝ</button>
                         </div>
-                    </div>
-                    <div class="auth-form__aside">
-                        <p class="auth-form__policy-text">Bằng việc đăng ký, bạn đã đồng ý với Shopee về
-                            <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
-                            <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
-                        </p>
-                    </div>
-                    <div class="auth-form__controls">
-                        <button class="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
-                        <button class="btn btn--primary">ĐĂNG KÝ</button>
-                    </div>
+                    </form>
+
                 </div>
                 
             </div>
@@ -74,7 +86,7 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                         <div class="auth-form__form">
                             <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Email của bạn" name="user" id="">
+                                <input type="text" class="auth-form__input" placeholder="Email của bạn" name="email" id="">
                             </div>
                             <div class="auth-form__group">
                                 <input type="password" class="auth-form__input" placeholder="Password của bạn" name="pass" id="">

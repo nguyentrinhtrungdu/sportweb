@@ -590,6 +590,14 @@
 .auth-form__form{
 
 }
+.auth-form__input.invalid {
+    border-color: red;
+}
+
+.auth-form__error {
+    color: red;
+    font-size: 0.875rem;
+}
 
 .auth-form__input{
     width: 100%;

@@ -1,7 +1,7 @@
 <?php
-function checkuser($user,$pass){
+function checkuser($email,$pass){
     $conn=connectbd();
-    $stmt = $conn->prepare("SELECT * FROM tbl_user WHERE user='".$user."' AND pass = '".$pass."'");
+    $stmt = $conn->prepare("SELECT * FROM tbl_user WHERE email='".$email."' AND pass = '".$pass."'");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq=$stmt->fetchAll();
@@ -10,9 +10,9 @@ function checkuser($user,$pass){
 
 
 }
-function getuserinfo($user,$pass){
+function getuserinfo($email,$pass){
     $conn=connectbd();
-    $stmt = $conn->prepare("SELECT * FROM tbl_user WHERE user='".$user."' AND pass = '".$pass."'");
+    $stmt = $conn->prepare("SELECT * FROM tbl_user WHERE email='".$email."' AND pass = '".$pass."'");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq=$stmt->fetchAll();
