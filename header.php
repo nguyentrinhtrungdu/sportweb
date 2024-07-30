@@ -31,9 +31,11 @@ if (isset($_GET['remove_from_cart'])) {
         exit();
     }
 }
+
+$searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'] : [];
 ?>
 
-<header class="header">
+<<header class="header">
     <nav class="header__navbar">
         <div class="header__navbar-logo">
             <a href="/" class="header__navbar-link">
@@ -124,20 +126,10 @@ if (isset($_GET['remove_from_cart'])) {
         <div class="header-with-search">
             <div class="header__search">
                 <div class="header__search-input-wrap">
-                    <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
-                    <div class="header__search-history">
-                        <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                        <ul class="header__search-history-list">
-                            <li class="header__search-history-item">
-                                <a href="">Áo brazil</a>
-                            </li>
-                            <li class="header__search-history-item">
-                                <a href="">Quần kaki</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <input type="text" id="search-input" name="q" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                    <div class="header__search-history" id="search-history"></div>
                 </div>
-                <button class="header__search-btn">
+                <button class="header__search-btn" id="search-btn">
                     <i class="header__search-btn-icon fa-sharp fa-solid fa-magnifying-glass"></i>
                 </button>
                 <div class="header__cart">
@@ -186,3 +178,31 @@ if (isset($_GET['remove_from_cart'])) {
         </div>
     </nav>
 </header>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchHistory = document.getElementById('search-history');
+    const searchBtn = document.getElementById('search-btn');
+
+    // Function to perform search
+    function performSearch() {
+        const query = searchInput.value;
+        if (query.length > 0) {
+            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
+        }
+    }
+
+    // Event listener for search button click
+    searchBtn.addEventListener('click', performSearch);
+
+    // Event listener for Enter key press
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default form submission
+            performSearch();
+        }
+    });
+});
+
+</script>

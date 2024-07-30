@@ -3,7 +3,7 @@
 
     class product {
         private $db;
-
+        
         public function __construct() {
             $this->db = new Database();
         }
@@ -150,6 +150,22 @@
             return $result;
         }
 
+        public function search_products($query) {
+            $query = '%' . $query . '%'; // Chuẩn bị chuỗi tìm kiếm với dấu % để tìm kiếm phần chứa
+    
+            // Sử dụng prepared statements để bảo vệ khỏi SQL Injection
+            $sql = "SELECT * FROM tbl_product 
+                    WHERE product_name LIKE ?";
+    
+            // Prepare statement and execute
+            $stmt = $this->db->prepare($sql); // Chuẩn bị câu lệnh SQL
+            $stmt->bind_param("s", $query); // Liên kết tham số với biến $query
+            $stmt->execute(); // Thực thi câu lệnh
+    
+            // Get result
+            $result = $stmt->get_result();
+            return $result;
+        }
         
     }
     ?>
