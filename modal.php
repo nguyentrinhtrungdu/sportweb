@@ -1,8 +1,11 @@
 <?php
-ob_start();
-include "../sportweb/user/connectdb.php";
-include "../sportweb/user/user.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Update the path to match the actual location of connectbd.php
+include __DIR__ . "/../sportweb/user/connectdb.php";
+include __DIR__ . "/../sportweb/user/user.php";
 
 if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
     $email = $_POST['email'];
@@ -13,6 +16,7 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
         $_SESSION['user_id'] = $kq[0]['id'];
         $_SESSION['email'] = $kq[0]['email'];
         $_SESSION['role'] = $kq[0]['role'];
+        $_SESSION['name'] = $kq[0]['name']; // Lưu tên người dùng vào phiên
         
         if ($kq[0]['role'] == 1) {
             // Admin user
@@ -27,6 +31,7 @@ if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
     }
 }
 ?>
+
 
 <div class="modal js-modal">
         <div class="modal__overlay js-modal-container"></div>

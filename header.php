@@ -35,7 +35,7 @@ if (isset($_GET['remove_from_cart'])) {
 $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'] : [];
 ?>
 
-<<header class="header">
+<header class="header">
     <nav class="header__navbar">
         <div class="header__navbar-logo">
             <a href="/" class="header__navbar-link">
@@ -112,16 +112,28 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
         </ul>
 
         <ul class="header__navbar-list">
-            <?php if ($isLoggedIn): ?>
-                <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
-                    <a href="./user/logout.php">Đăng xuất</a>
+            <?php if ($isLoggedIn ): ?>
+                <li class="header__navbar-item header__navbar-user">
+                    <img src="">
+                    <span class="header__navbar-user-name"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                    <ul class="header__navbar-user-menu">
+                        <li class="header__navbar-user-item">
+                            <a href="../user/profile.php">Tài khoản của tôi</a>
+                        </li>
+                       
+                        <li class="header__navbar-user-item">
+                            <a href="">Đơn mua</a>
+                        </li>
+                        <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+                            <a href="../user/logout.php">Đăng xuất</a>
+                        </li>
+                    </ul>
                 </li>
             <?php else: ?>
                 <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate register-form">Đăng ký</li>
                 <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
             <?php endif; ?>
         </ul>
-
         <!-- Search -->
         <div class="header-with-search">
             <div class="header__search">
@@ -164,13 +176,12 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                                     <?php endforeach; ?>
                                 </ul>
                                 <a href="#" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
-
-                                <?php else: ?>
-    <div class="header__cart-list header__cart-list--no-cart">
-        <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
-        <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
-    </div>
-<?php endif; ?>
+                            <?php else: ?>
+                                <div class="header__cart-list header__cart-list--no-cart">
+                                    <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
+                                    <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -180,7 +191,7 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
 </header>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const searchHistory = document.getElementById('search-history');
     const searchBtn = document.getElementById('search-btn');
@@ -204,5 +215,4 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
         }
     });
 });
-
 </script>

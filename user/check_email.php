@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
-    $exists = checkEmailExists($email); // Giả sử bạn có một hàm checkEmailExists để kiểm tra email
+    $exists = checkEmailExists($email); 
     
     echo json_encode([
         'exists' => $exists,
