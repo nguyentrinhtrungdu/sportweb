@@ -29,7 +29,7 @@ while ($p = $all_products->fetch_assoc()) {
 }
 
 // Handle add to cart action
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($product) {
         $size = $_POST['size'];
         $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
@@ -57,9 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
         if (!$exists) {
             $_SESSION['cart'][] = $cart_item;
         }
-        // Redirect to avoid resubmission on page refresh
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit();
+
+        if (isset($_POST['buy_now'])) {
+            header("Location: thanhtoan.php");
+            exit();
+        } else {
+            // Redirect to avoid resubmission on page refresh
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            exit();
+        }
     }
 }
 ?>
@@ -109,14 +115,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
                     <span><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
                 </div>
                 <form method="post" action="">
-                    <div class="product-detail__size">
-                        <label for="size">Chọn kích thước:</label>
-                        <select name="size" id="size">
-                            <?php for ($size = 39; $size <= 43; $size++): ?>
-                                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
+                <?php
+$showSizeOptions = false;
+
+if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "THƯƠNG HIỆU") {
+    $showSizeOptions = true;
+}
+?>
+
+<?php if ($showSizeOptions): ?>
+    <label for="size">Chọn kích thước:</label>
+    <select name="size" id="size">
+        <?php 
+        if ($product['brand_name'] === "GĂNG TAY") {
+            // Hiển thị kích thước từ 6 đến 10 nếu sản phẩm thuộc nhãn hiệu "GĂNG TAY"
+            for ($size = 6; $size <= 10; $size++): ?>
+                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
+            <?php endfor;
+        } else if($product['category_name'] === "THƯƠNG HIỆU") {
+            for ($size = 39; $size <= 43; $size++): ?>
+                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
+            <?php endfor;
+        }
+        ?>
+    </select>
+<?php endif; ?>
+
                     <div class="product-detail__quantity">
                         <label for="quantity">Số lượng:</label>
                         <div class="quantity-controls">
