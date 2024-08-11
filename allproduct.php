@@ -9,12 +9,13 @@
     <title>Document</title>
 </head>
 <body>
+    
     <?php
     include ("./header.php");
     include_once __DIR__ . "/admin/class/category_class.php";
     include_once __DIR__ . "/admin/class/brand_class.php";
     include_once __DIR__ . "/admin/class/product_class.php";
-
+    
     // Instantiate the classes
     $productClass = new product();
     $categoryClass = new category();

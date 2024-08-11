@@ -10,15 +10,17 @@ if (!isset($_SESSION['user_id'])) {
 include 'connectdb.php'; // Include the database connection
 include 'user.php'; // Include user-related functions
 
-$pdo = connectbd(); // Initialize the PDO instance
+// Initialize the PDO instance
+$pdo = connectbd();
 
 if ($pdo === null) {
     echo "Database connection failed.";
     exit();
 }
 
+// Fetch user information
 $userId = $_SESSION['user_id'];
-$userInfo = getUserInfoById($pdo, $userId); // Fetch user info
+$userInfo = getUserInfoById($pdo, $userId);
 
 if (!$userInfo) {
     echo "User information not found.";
@@ -39,21 +41,21 @@ if (!$userInfo) {
 </head>
 <body>
     <main>
-        <?php include ("../header.php"); ?>
+        <?php include "../header.php"; ?>
         <div class="container">
-        <section class="profile">
-            <h1>Thông Tin Cá Nhân</h1>
-            <div class="profile-info">
-                <p><strong>Họ và tên:</strong> <?php echo htmlspecialchars($userInfo['name']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($userInfo['email']); ?></p>
-                <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($userInfo['number']); ?></p>
-                <p><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($userInfo['address']); ?></p>
-                <!-- Add other information as needed -->
-            </div>
-            <a href="edit_profile.php" class="btn">Chỉnh sửa thông tin</a>
-        </section>
+            <section class="profile">
+                <h1>Thông Tin Cá Nhân</h1>
+                <div class="profile-info">
+                    <p><strong>Họ và tên:</strong> <?php echo htmlspecialchars($userInfo['name']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($userInfo['email']); ?></p>
+                    <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($userInfo['number']); ?></p>
+                    <p><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($userInfo['address']); ?></p>
+                    <!-- Add other information as needed -->
+                </div>
+                <a href="edit_profile.php" class="btn">Chỉnh sửa thông tin</a>
+            </section>
         </div>
     </main>
-    <?php include ("../footer.php"); ?>
+    <?php include "../footer.php"; ?>
 </body>
 </html>

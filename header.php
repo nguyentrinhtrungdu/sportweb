@@ -175,7 +175,7 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <a href="#" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
+                                <a href="thanhtoan.php" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
                             <?php else: ?>
                                 <div class="header__cart-list header__cart-list--no-cart">
                                     <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">

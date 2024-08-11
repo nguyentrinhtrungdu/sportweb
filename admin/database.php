@@ -31,9 +31,9 @@ class Database {
     }
 
     public function insert($query) {
-        $this->connection->query($query);
-
-        if ($this->connection->error) {
+        if ($this->connection->query($query) === TRUE) {
+            return $this->get_last_insert_id(); // Return the last inserted ID
+        } else {
             die("Insert failed: " . $this->connection->error);
         }
     }
@@ -65,6 +65,11 @@ class Database {
         return $stmt;
     }
     
+    // New method to get the last inserted ID
+    public function get_last_insert_id() {
+        return $this->connection->insert_id;
+    }
+
     // Getter method to access the connection
     public function getConnection() {
         return $this->connection;
