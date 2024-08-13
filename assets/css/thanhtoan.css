@@ -100,3 +100,17 @@
     color: white;
     margin-left: 10px;
 }
+
+.order-address{
+    margin-top: 30px;
+}
+
+.order-address #address{
+    width: 300px;
+    margin-left: 10px;
+    height: 30px;
+}
+
+.order-address label{
+    font-size: 14px;
+}

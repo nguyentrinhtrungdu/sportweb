@@ -1,124 +1,155 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+<!DOCTYPE html>
+<html lang="en">
 
-// Update the path to match the actual location of connectbd.php
-include __DIR__ . "/../sportweb/user/connectdb.php";
-include __DIR__ . "/../sportweb/user/user.php";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/modal.css">
+    <title>Modern Login Page | AsmrProg</title>
+</head>
 
-if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $kq = getuserinfo($email, $pass);
-    
-    if ($kq) {
-        $_SESSION['user_id'] = $kq[0]['id'];
-        $_SESSION['email'] = $kq[0]['email'];
-        $_SESSION['role'] = $kq[0]['role'];
-        $_SESSION['name'] = $kq[0]['name']; // Lưu tên người dùng vào phiên
-        
-        if ($kq[0]['role'] == 1) {
-            // Admin user
-            header('Location: ../admin/productlist.php');
-        } else {
-            // Regular user
-            header('Location:index.php');
-        }
-    } else {
-        // Handle login error
-        $txt_erro = "Username or password is incorrect!";
-    }
-}
-?>
+<body>
+    <div id="toast"></div>
 
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up">
+            <form id="sign-up-form">
+                <h1>Tạo Tài Khoản</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>hoặc sử dụng email của bạn để đăng ký</span>
 
-<div class="modal js-modal">
-        <div class="modal__overlay js-modal-container"></div>
-        <div class="modal__body">
-            
-            <!-- Register form -->
-            <div class="auth-form js-register-form">
-                <div class="auth__form-container">
-                    <div class="auth-form__header">
-                        <h3 class="auth-form__heading">Đăng ký</h3>
-                        <span class="auth-form__switch-btn js-switch-to">Đăng nhập</span>
-                    </div>
-                    <form action="./user/regis.php" method="post">
-                        <div class="auth-form__form">
-                            <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" name="name" placeholder="Nhập tên của bạn" required>
-                            </div>
-                            <div class="auth-form__group">
-    <input id="email" type="email" class="auth-form__input" name="email" placeholder="Email của bạn" required>
-    <span id="emailError" class="auth-form__error" style="display: none;"></span> <!-- Vùng để hiển thị lỗi -->
+                <div class="form-group">
+                    <select name="role" class="role-select">
+                        <option value="" disabled selected>Chọn vai trò của bạn</option>
+                        <option value="student">Học sinh</option>
+                        <option value="teacher">Gia sư</option>
+                    </select>
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <input id="fullname" name="fullname" type="text" placeholder="Nhập họ và tên" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="username" name="username" type="text" placeholder="Nhập tên tài khoản" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="email" name="email" type="text" placeholder="Nhập Email" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                    <span class="form-message"></span>
 </div>
-                            <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" name="address" placeholder="Nhập địa chỉ" required>
-                            </div>
-                            <div class="auth-form__group">
-                                <input type="password" class="auth-form__input" name="pass" placeholder="Password của bạn" required>
-                            </div>
-                            <div class="auth-form__group">
-                                <input type="password" class="auth-form__input" name="repass" placeholder="Nhập lại password" required>
-                            </div>
-                        </div>
-                        <div class="auth-form__aside">
-                            <p class="auth-form__policy-text">Bằng việc đăng ký, bạn đã đồng ý với Shopee về
-                                <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
-                                <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
-                            </p>
-                        </div>
-                        <div class="auth-form__controls">
-                            <button class="btn btn--normal auth-form__controls-back">TRỞ LẠI</button>
-                            <button class="btn btn--primary" type="submit" name="dangky" value="Đăng ký">ĐĂNG KÝ</button>
-                        </div>
-                    </form>
+                <button type="submit">Đăng Ký</button>
+            </form>
+        </div>
 
+        <!-- Sign In Form -->
+        <div class="form-container sign-in">
+            <form id="sign-in-form">
+                <h1>Đăng nhập</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
-                
-            </div>
-    
-            <!-- Login form -->
-            <div class="auth-form js-login-form">
-                <div class="auth__form-container">
-                    <div class="auth-form__header">
-                        <h3 class="auth-form__heading">Đăng nhập</h3>
-                        <span class="auth-form__switch-btn js-switch-to">Đăng ký</span>
-                    </div>
-                   
-                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                        <div class="auth-form__form">
-                            <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Email của bạn" name="email" id="">
-                            </div>
-                            <div class="auth-form__group">
-                                <input type="password" class="auth-form__input" placeholder="Password của bạn" name="pass" id="">
-                            </div>
-                        </div>
-                        <div class="auth-form__controls">
-                            <button class="btn btn--primary" type="submit" name="dangnhap" value="Đăng nhập">ĐĂNG NHẬP</button>
-                            <button class="btn btn--normal auth-form__controls-back js-close">TRỞ LẠI</button>
-                        </div>
-                        <?php
-                        if (isset($txt_erro) && $txt_erro != "") {
-                            echo '<p class="auth-form__error">' . htmlspecialchars($txt_erro) . '</p>';
-                        }
-                        ?>
-                    </form>
+                <span>hoặc sử dụng tài khoản của bạn</span>
+                <div class="form-group">
+                    <input id="login_username" name="username" type="text" placeholder="Nhập tên tài khoản" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="login_password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <a href="#">Quên mật khẩu?</a>
 
-                    <div class="auth-form__aside">
-                        <div class="auth-form__help">
-                            <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
-                            <span class="auth-form__help-separate"></span>
-                            <a href="" class="auth-form__help-link">Cần trợ giúp</a>
-                        </div>
-                    </div>
-                   
+                <button type="submit">Đăng nhập</button>
+            </form>
+        </div>
+
+        <!-- Toggle Container -->
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Chào Mừng Trở Lại!</h1>
+                    <p>Nhập thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
+                    <button class="hidden" id="login">Đăng nhập</button>
                 </div>
-               
+                <div class="toggle-panel toggle-right">
+                    <h1>Xin Chào Bạn!</h1>
+                    <p>Đăng ký với thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
+                    <button class="hidden" id="register">Đăng ký</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="modal.js" ></script>
+    <script src="../js/validator.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/toast.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Validator({
+                form: '#sign-up-form',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('select[name="role"]', 'Vui lòng chọn vai trò của bạn'),
+                    Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                    Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
+                    Validator.isRequired('#email', 'Vui lòng nhập email'),
+                    Validator.isEmail('#email', 'Trường này phải là email'),
+                    Validator.minLength('#password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                    Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
+                    Validator.isConfirmed('#password_confirmation', function () {
+                        return document.querySelector('#sign-up-form #password').value;
+                    }, 'Mật khẩu xác nhận không khớp')
+                ],
+                onSubmit: function (data) {
+                    showSuccessToast();
+                    setTimeout(function () {
+                        localStorage.setItem('loggedIn', 'true');
+                        const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                        window.location.href = previousPage;
+                    }, 2000);
+                }
+            });
+            Validator({
+                form: '#sign-in-form',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#login_username', 'Vui lòng nhập tên tài khoản'),
+                    Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
+                    Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                ],
+                onSubmit: function (data) {
+                    // Gọi API hoặc xử lý dữ liệu ở đây
+                    console.log(data);
+                    localStorage.setItem('loggedIn', 'true');
+                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                    window.location.href = previousPage;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -3,7 +3,6 @@ session_start();
 include_once __DIR__ . "/user/user_class.php";
 include_once __DIR__ . "/admin/class/order_class.php"; // Ensure this path is correct
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total = 0;
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     unset($_SESSION['cart']);
 
-                    header("Location: thank_you.php?order_id=" . $order_id);
+                    // header("Location: thank_you.php?order_id=" . $order_id);
                     exit();
                 } catch (Exception $e) {
                     echo "An error occurred while processing your order: " . $e->getMessage();
@@ -93,16 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endforeach; ?>
 
                 <p class="total-amount">Tổng tiền: <?php echo number_format($total, 0, ',', '.'); ?>đ</p>
-
+                <div class="order-address">
+                    <label for="address">Địa chỉ giao hàng</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
                 <div class="order-notes">
                     <label for="order-notes">GHI CHÚ ĐƠN HÀNG</label>
                     <textarea id="order-notes" name="order_notes"></textarea>
                 </div>
 
-                <div class="order-address">
-                    <label for="address">Địa chỉ giao hàng</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
+              
 
                 <div class="btn-container">
                     <button type="submit" class="btn-checkout">Thanh toán</button>
@@ -112,5 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Giỏ hàng của bạn trống.</p>
         <?php endif; ?>
     </div>
+
+    <?php include ("./modal.php"); ?>
+            
 </body>
 </html>
