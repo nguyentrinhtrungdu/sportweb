@@ -131,8 +131,8 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                     </ul>
                 </li>
             <?php else: ?>
-                <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate register-form">Đăng ký</li>
-                <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
+              
+                <a href="modal.php"><li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li></a>
             <?php endif; ?>
         </ul>
 

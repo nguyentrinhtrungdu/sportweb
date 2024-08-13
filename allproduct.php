@@ -179,7 +179,7 @@
     <?php include ("./footer.php"); ?>
 
     <!-- Modal layout -->
-    <?php include ("./modal.php"); ?>
+  
 
     <script>
         document.querySelectorAll('.brand-list input[type="checkbox"]').forEach(function(checkbox) {

@@ -15,7 +15,7 @@
     <div class="container" id="container">
         <!-- Sign Up Form -->
         <div class="form-container sign-up">
-    <form id="sign-up-form" method="POST" action="../regis.php">
+    <form id="sign-up-form" method="POST" action="./user/regis.php">
         <h1>Tạo Tài Khoản</h1>
         <div class="social-icons">
             <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -51,28 +51,28 @@
 
         <!-- Sign In Form -->
         <div class="form-container sign-in">
-        <form id="sign-in-form" method="POST" action="login.php">
-                <h1>Đăng nhập</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
-                <span>hoặc sử dụng tài khoản của bạn</span>
-                <div class="form-group">
-                    <input id="login_username" name="username" type="text" placeholder="Nhập tên tài khoản" class="form-control">
-                    <span class="form-message"></span>
-                </div>
-                <div class="form-group">
-                    <input id="login_password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
-                    <span class="form-message"></span>
-                </div>
-                <a href="#">Quên mật khẩu?</a>
-
-                <button type="submit">Đăng nhập</button>
-            </form>
+    <form id="sign-in-form" method="POST" action="./user/login.php">
+        <h1>Đăng nhập</h1>
+        <div class="social-icons">
+            <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
+        <span>hoặc sử dụng tài khoản của bạn</span>
+        <div class="form-group">
+            <input id="email" name="email" type="email" placeholder="Nhập email" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="form-group">
+            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <a href="#">Quên mật khẩu?</a>
+
+        <button type="submit">Đăng nhập</button>
+    </form>
+</div>
 
         <!-- Toggle Container -->
         <div class="toggle-container">
@@ -114,14 +114,7 @@
                         return document.querySelector('#sign-up-form #password').value;
                     }, 'Mật khẩu xác nhận không khớp')
                 ],
-                onSubmit: function (data) {
-                    showSuccessToast();
-                    setTimeout(function () {
-                        localStorage.setItem('loggedIn', 'true');
-                        const previousPage = localStorage.getItem('previousPage') || 'index.html';
-                        window.location.href = previousPage;
-                    }, 2000);
-                }
+              
             });
             Validator({ 
                 form: '#sign-in-form',
@@ -132,16 +125,10 @@
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
                     Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
-                onSubmit: function (data) {
-                    // Gọi API hoặc xử lý dữ liệu ở đây
-                    console.log(data);
-                    localStorage.setItem('loggedIn', 'true');
-                    const previousPage = localStorage.getItem('previousPage') || 'index.html';
-                    window.location.href = previousPage;
-                }
+               
             });
         });
     </script>
 </body>
-
+        <script src="modal.js"></script>
 </html>

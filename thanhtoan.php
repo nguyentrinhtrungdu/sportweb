@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php endif; ?>
     </div>
 
-    <?php include ("./modal.php"); ?>
+   
             
 </body>
 </html>

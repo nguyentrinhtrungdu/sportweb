@@ -164,7 +164,7 @@ if ($product['brand_name'] === "GÄ‚NG TAY" || $product['category_name'] === "THÆ
     <?php include ("./footer.php"); ?>
 
     <!-- Modal layout -->
-    <?php include ("./modal.php"); ?>
+    
 
     <script>
         document.getElementById('increment').addEventListener('click', function() {

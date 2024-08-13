@@ -10,17 +10,44 @@ class User {
     }
 
     // Đăng ký người dùng mới
-    public function register($name, $password, $email) {
-        $sql = "INSERT INTO users (name, pass, email, role) VALUES (:name, :password, :email, 'user')";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':password', $password); // Không mã hóa mật khẩu
-        $stmt->bindParam(':email', $email);
-
-        return $stmt->execute();
+    public function register($name, $password, $email, $address) {
+        try {
+            $sql = "INSERT INTO users (name, pass, email, address, role) VALUES (:name, :password, :email, :address, 'user')";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':address', $address);
+    
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                // Log errors
+                error_log("Database error: " . print_r($stmt->errorInfo(), true));
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("PDO error: " . $e->getMessage());
+            return false;
+        }
     }
 
-    // Lấy ID người dùng dựa trên email
+    // Xử lý đăng nhập
+    public function login($email, $password) {
+        // Truy vấn kiểm tra email và mật khẩu
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email AND pass = :pass");
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':pass', $password);
+        $stmt->execute();
+
+        // Nếu có kết quả thì đăng nhập thành công
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    // Các phương thức khác
     public function getUserId($email) {
         $sql = "SELECT user_id FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
@@ -31,7 +58,6 @@ class User {
         return $user ? $user['user_id'] : null;
     }
 
-    // Lấy vai trò của người dùng dựa trên email
     public function getUserRole($email) {
         $sql = "SELECT role FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
@@ -41,28 +67,15 @@ class User {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? $user['role'] : null;
     }
+
     public function getUsernameByEmail($email) {
         $sql = "SELECT name FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-    
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? $user['name'] : null;
-    }
-
-    // Xử lý đăng nhập
-    public function login($email, $password) {
-        $sql = "SELECT pass FROM users WHERE email = :email";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user && $password === $user['pass']) { // So sánh mật khẩu không mã hóa
-            return true;
-        }
-        return false;
     }
 }
 ?>

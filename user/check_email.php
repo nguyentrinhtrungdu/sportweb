@@ -1,24 +1,29 @@
 <?php
-include "connectdb.php";
-header('Content-Type: application/json');
+include_once __DIR__ . '/connectdb.php'; // Bao gồm tệp kết nối cơ sở dữ liệu
 
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
-    $exists = checkEmailExists($email); 
+if (isset($_GET['email'])) {
+    $email = trim($_GET['email']);
     
-    echo json_encode([
-        'exists' => $exists,
-        'message' => $exists ? 'Email đã được sử dụng, vui lòng sử dụng email khác' : ''
-    ]);
-}
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['status' => 'error', 'message' => 'Email không hợp lệ.']);
+        exit();
+    }
 
-function checkEmailExists($email) {
-    $conn = connectbd();
-    $query = "SELECT COUNT(*) AS count FROM tbl_user WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bindValue(1, $email);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row['count'] > 0;
+    try {
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Email đã tồn tại.']);
+        } else {
+            echo json_encode(['status' => 'success', 'message' => 'Email hợp lệ.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Lỗi cơ sở dữ liệu.']);
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Không có email được gửi.']);
 }
 ?>

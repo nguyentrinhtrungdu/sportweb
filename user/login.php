@@ -1,23 +1,33 @@
 <?php
 session_start();
-include_once __DIR__ . './user.php'; // Đảm bảo đường dẫn đúng
+include_once __DIR__ . '/user.php'; // Đảm bảo đường dẫn đúng
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['pass'];
+    // Lấy dữ liệu từ POST
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    $user = new User();
-    $loginSuccess = $user->login($email, $password);
-
-    if ($loginSuccess) {
-        $_SESSION['user_name'] = $user->getUsernameByEmail($email);
-        $_SESSION['user_id'] = $user->getUserId($email);
-        $_SESSION['user_role'] = $user->getUserRole($email);
-
-        header("Location: ../index.php");
-        exit();
+    if (empty($email) || empty($password)) {
+        $txt_erro = "Vui lòng nhập cả email và mật khẩu.";
     } else {
-        $txt_erro = "Email hoặc mật khẩu không chính xác.";
+        $user = new User();
+        $loginSuccess = $user->login($email, $password);
+
+        if ($loginSuccess) {
+            $_SESSION['user_name'] = $user->getUsernameByEmail($email);
+            $_SESSION['user_id'] = $user->getUserId($email);
+            $_SESSION['user_role'] = $user->getUserRole($email);
+
+            header("Location: /index.php");
+            exit();
+        } else {
+            $txt_erro = "Email hoặc mật khẩu không chính xác.";
+        }
+    }
+
+    // Hiển thị thông báo lỗi nếu có
+    if (isset($txt_erro)) {
+        echo $txt_erro;
     }
 }
 ?>
