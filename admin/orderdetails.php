@@ -13,8 +13,15 @@ if ($order_id <= 0) {
     die("ID đơn hàng không hợp lệ.");
 }
 
-// Lấy thông tin đơn hàng và chi tiết đơn hàng
+// Lấy thông tin đơn hàng
 $order_details = $order->get_order_details($order_id);
+
+// Kiểm tra nếu đơn hàng tồn tại
+if (!$order_details) {
+    die("Đơn hàng không tồn tại.");
+}
+
+// Lấy thông tin các sản phẩm trong đơn hàng
 $order_items = $order->get_order_items($order_id);
 ?>
 <!DOCTYPE html>
@@ -26,31 +33,27 @@ $order_items = $order->get_order_items($order_id);
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Chi tiết đơn hàng</h1>
-    </header>   
-
+   
+<h1>Chi tiết đơn hàng</h1>   
     <section class="admin-content">
         <div class="admin-content-right">
-            <div class="admin-content-right-order_details">               
-                <h2>Chi tiết sản phẩm</h2>
+            <div class="admin-content-right-order_details">   
+                       
                 <table>
                     <tr>
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
                         <th>Hình ảnh</th>
                         <th>Số lượng</th>
-                        <th>Mô tả</th>
                     </tr>
                     <?php
                     if ($order_items && $order_items->num_rows > 0) {
                         while ($item = $order_items->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . htmlspecialchars($item['product_name']) . "</td>";
-                            echo "<td>" . htmlspecialchars($item['product_price']) . "</td>";
-                            echo "<td><img src='" . htmlspecialchars($item['product_img']) . "' alt='" . htmlspecialchars($item['product_name']) . "' width='100'></td>";
+                            echo "<td>" . number_format($item['product_price'], 0, ',', '.') . "đ</td>";
+                            echo "<td><img src='./uploads/" . htmlspecialchars($item['product_img']) . "' alt='" . htmlspecialchars($item['product_name']) . "' width='100'></td>";
                             echo "<td>" . htmlspecialchars($item['quantity']) . "</td>";
-                            echo "<td>" . htmlspecialchars($item['descr']) . "</td>";
                             echo "</tr>";
                         }
                     } else {

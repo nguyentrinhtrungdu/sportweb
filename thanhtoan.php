@@ -3,7 +3,6 @@ session_start();
 include_once __DIR__ . "/user/user_class.php";
 include_once __DIR__ . "/admin/class/order_class.php"; // Ensure this path is correct
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total = 0;
@@ -11,33 +10,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $total += $item['product_price'] * $item['quantity'];
         }
 
-        // Retrieve user information
         $userClass = new User();
-        $user_id = $_SESSION['user_id']; // Ensure this matches the session key where user ID is stored
+        $user_id = $_SESSION['user_id'];
 
         if (isset($user_id)) {
             $user = $userClass->get_user_by_id($user_id);
 
             if ($user) {
                 $user_name = $user['name'];
-                $address = htmlspecialchars($_POST['address']); // Sanitize user input
+                $address = htmlspecialchars($_POST['address']);
+                $descr = htmlspecialchars($_POST['order_notes']); // This is the `descr` for `tbl_orders`
 
-                // Create an order
                 $orderClass = new Order();
 
                 try {
-                    $order_id = $orderClass->create_order($user_id, $user_name, $address, $total);
+                    $order_id = $orderClass->create_order($user_id, $user_name, $address, $total, $descr);
 
-                    // Insert order items
                     foreach ($_SESSION['cart'] as $item) {
                         $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity']);
                     }
 
-                    // Clear cart
                     unset($_SESSION['cart']);
 
-                    // Redirect to a thank you page or order summary page
-                    header("Location: thank_you.php?order_id=" . $order_id);
+                    // header("Location: thank_you.php?order_id=" . $order_id);
                     exit();
                 } catch (Exception $e) {
                     echo "An error occurred while processing your order: " . $e->getMessage();
@@ -51,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Your cart is empty.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -96,16 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endforeach; ?>
 
                 <p class="total-amount">Tổng tiền: <?php echo number_format($total, 0, ',', '.'); ?>đ</p>
-
+                <div class="order-address">
+                    <label for="address">Địa chỉ giao hàng</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
                 <div class="order-notes">
                     <label for="order-notes">GHI CHÚ ĐƠN HÀNG</label>
                     <textarea id="order-notes" name="order_notes"></textarea>
                 </div>
 
-                <div class="order-address">
-                    <label for="address">Địa chỉ giao hàng</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
+              
 
                 <div class="btn-container">
                     <button type="submit" class="btn-checkout">Thanh toán</button>
@@ -115,5 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Giỏ hàng của bạn trống.</p>
         <?php endif; ?>
     </div>
+
+    <?php include ("./modal.php"); ?>
+            
 </body>
 </html>
