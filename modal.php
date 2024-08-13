@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../assets/css/modal.css">
+    <link rel="stylesheet" href="./assets/css/modal.css">
     <title>Modern Login Page | AsmrProg</title>
 </head>
 
@@ -100,9 +100,9 @@
         </div>
     </div>
 
-    <script src="../js/validator.js"></script>
-    <script src="../js/modal.js"></script>
-    <script src="../js/toast.js"></script>
+    <script src="./validator.js"></script>
+    <script src="./modal.js"></script>
+    <script src="./toast.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
