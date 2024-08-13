@@ -49,8 +49,6 @@ class Order {
     
         return ['order' => $order, 'items' => $items];
     }
-    
-    
 
     public function get_order_items($order_id) {
         $query = "SELECT product_name, product_price, product_img, quantity
@@ -61,7 +59,6 @@ class Order {
         $stmt->execute();
         return $stmt->get_result();
     }
-    
 
     public function show_orders() {
         $query = "SELECT o.order_id, u.name AS user_name, o.address, o.total, o.status, o.descr
@@ -72,23 +69,20 @@ class Order {
     }
 
     public function create_order($user_id, $user_name, $address, $total, $descr) {
-        $query = "INSERT INTO tbl_orders (user_id, user_name, address, total, status, descr) VALUES (?, ?, ?, ?, 'pending')";
+        $query = "INSERT INTO tbl_orders (user_id, user_name, address, total, status, descr) 
+                  VALUES (?, ?, ?, ?, 'pending', ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('isss', $user_id, $user_name, $address, $total, $descr);
+        $stmt->bind_param('issds', $user_id, $user_name, $address, $total, $descr);
         $stmt->execute();
         return $this->db->get_last_insert_id(); // Trả về ID của đơn hàng mới tạo
     }
-    
 
     public function add_order_item($order_id, $product_id, $product_name, $product_img, $product_price, $quantity) {
-        $query = "INSERT INTO tbl_order_items (order_id, product_id, product_name, product_img, product_price, quantity, ) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO tbl_order_items (order_id, product_id, product_name, product_img, product_price, quantity) 
+                  VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('iissdis', $order_id, $product_id, $product_name, $product_img, $product_price, $quantity );
+        $stmt->bind_param('iissdi', $order_id, $product_id, $product_name, $product_img, $product_price, $quantity);
         return $stmt->execute();
     }
-    
-    
-    
 }
 ?>

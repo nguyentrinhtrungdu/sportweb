@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = $_POST['address'];
     // Xử lý đăng ký (thay đổi theo cách bạn xử lý đăng ký)
     $user = new User(); // Khởi tạo lớp người dùng
-    $registerSuccess = $user->register($name, $password, $email,$address);
+    $registerSuccess = $user->register($name, $password, $email,$address,$num);
 
     if ($registerSuccess) {
         $_SESSION['user_name'] = $name;

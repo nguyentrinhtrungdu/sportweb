@@ -20,7 +20,8 @@ Validator({
     errorSelector: '.form-message',
     rules: [
         Validator.isRequired('#name', 'Vui lòng nhập họ và tên'),
-        Validator.isRequired('#email', 'Vui lòng nhập email'),
+        Validator.isEmail('#email', 'Trường này phải là email'),
+        
         Validator.isEmail('#email', 'Trường này phải là email'),
         Validator.minLength('#password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
         Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
@@ -34,30 +35,4 @@ Validator({
     }
 });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const emailInput = document.querySelector('#email');
-        const emailMessage = document.querySelector('#email-message');
-
-        emailInput.addEventListener('input', function () {
-            const email = emailInput.value;
-            if (email) {
-                fetch(`check_email.php?email=${encodeURIComponent(email)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'error') {
-                            emailMessage.textContent = data.message;
-                            emailMessage.style.color = 'red';
-                        } else {
-                            emailMessage.textContent = data.message;
-                            emailMessage.style.color = 'green';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            } else {
-                emailMessage.textContent = '';
-            }
-        });
-    });
-
+  

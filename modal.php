@@ -26,7 +26,7 @@
         <span>hoặc sử dụng email của bạn để đăng ký</span>
 
         <div class="form-group">
-            <input id="name" name="name" type="text" placeholder="Nhập họ và tên" class="form-control">
+            <input id="fullname" name="name" type="text" placeholder="Nhập họ và tên" class="form-control">
             <span class="form-message"></span>
         </div>
         <div class="form-group">
@@ -103,11 +103,12 @@
                 formGroupSelector: '.form-group',
                 errorSelector: '.form-message',
                 rules: [
-                    Validator.isRequired('select[name="role"]', 'Vui lòng chọn vai trò của bạn'),
+                   
                     Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
                     Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
                     Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isEmail('#email', 'Trường này phải là email'),
+                    Validator.isRequired('#address', 'Vui lòng nhập địa chỉ của bạn'),
                     Validator.minLength('#password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                     Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
                     Validator.isConfirmed('#password_confirmation', function () {

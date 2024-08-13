@@ -8,21 +8,22 @@ class User {
         global $pdo; // Sử dụng biến kết nối PDO từ tệp connectdb.php
         $this->pdo = $pdo;
     }
-
+    
     // Đăng ký người dùng mới
-    public function register($name, $password, $email, $address) {
+    public function register($name, $password, $email, $address, $num) {
         try {
-            $sql = "INSERT INTO users (name, pass, email, address, role) VALUES (:name, :password, :email, :address, 'user')";
+            // Adjusted SQL to match all columns except the auto-incrementing `user_id`
+            $sql = "INSERT INTO users (pass, email, role, name, num, address) VALUES (:password, :email, 'user', :name, :num, :address)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
     
             if ($stmt->execute()) {
                 return true;
             } else {
-                // Log errors
                 error_log("Database error: " . print_r($stmt->errorInfo(), true));
                 return false;
             }
@@ -31,6 +32,8 @@ class User {
             return false;
         }
     }
+    
+    
 
     // Xử lý đăng nhập
     public function login($email, $password) {
@@ -77,5 +80,17 @@ class User {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? $user['name'] : null;
     }
+
+    public function get_user_by_id($user_id) {
+        $query = "SELECT * FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($query);
+    
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
+    
 }
 ?>
