@@ -1,5 +1,4 @@
 <?php
-session_start();
 ob_start();
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
@@ -21,7 +20,7 @@ while ($brand = $brands->fetch_assoc()) {
 // Check if user is logged in and their role
 $isLoggedIn = isset($_SESSION['user_id']);
 $isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
-
+$_SESSION['name'] = $user_name;
 // Handle removal of items from the cart
 if (isset($_GET['remove_from_cart'])) {
     $remove_index = (int)$_GET['remove_from_cart'];

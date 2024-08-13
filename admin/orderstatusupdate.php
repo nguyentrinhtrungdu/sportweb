@@ -29,7 +29,7 @@ $order_details = $order->get_order_details($order_id);
 $status_map = [
     'pending' => 'Chờ xác nhận',
     'confirmed' => 'Đã xác nhận',
-    'shipped' => 'Đã vận chuyển',
+    'delivering' => 'Đang vận chuyển',
     'delivered' => 'Đã giao'
 ];
 $current_status = $status_map[$order_details['status']] ?? 'Chờ xác nhận';
@@ -43,7 +43,7 @@ $current_status = $status_map[$order_details['status']] ?? 'Chờ xác nhận';
             <select name="status">
                 <option value="Chờ xác nhận" <?php if ($current_status == 'Chờ xác nhận') echo 'selected'; ?>>Chờ xác nhận</option>
                 <option value="Đã xác nhận" <?php if ($current_status == 'Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
-                <option value="Đã vận chuyển" <?php if ($current_status == 'Đã vận chuyển') echo 'selected'; ?>>Đã vận chuyển</option>
+                <option value="Đang vận chuyển" <?php if ($current_status == 'Đang vận chuyển') echo 'selected'; ?>>Đang vận chuyển</option>
                 <option value="Đã giao" <?php if ($current_status == 'Đã giao') echo 'selected'; ?>>Đã giao</option>
             </select>
             <button type="submit">Cập nhật</button>

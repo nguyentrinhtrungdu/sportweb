@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     // Insert order items
                     foreach ($_SESSION['cart'] as $item) {
-                        $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity']);
+                        $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity'], $item['descr']);
                     }
 
                     // Clear cart
