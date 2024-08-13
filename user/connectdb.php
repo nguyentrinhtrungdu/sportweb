@@ -1,22 +1,13 @@
 <?php
-function connectbd() {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "websport"; // Tên database của bạn
+$host = 'localhost'; // Change this if necessary
+$dbname = 'websport';
+$user = 'root'; // Replace with your DB username
+$pass = ''; // Replace with your DB password
 
-    try {
-        // Tạo kết nối PDO
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-        
-        // Thiết lập chế độ lỗi của PDO
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        return $conn; // Trả về đối tượng PDO
-    } catch (PDOException $e) {
-        // Hiển thị thông báo lỗi nếu kết nối thất bại
-        echo "Kết nối thất bại: " . $e->getMessage();
-        return null; // Trả về null nếu kết nối thất bại
-    }
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Could not connect to the database: " . $e->getMessage());
 }
 ?>

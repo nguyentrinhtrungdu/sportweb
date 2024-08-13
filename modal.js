@@ -1,93 +1,72 @@
-const loginFormBtn = document.querySelector('.login-form');
-const registerFormBtn = document.querySelector('.register-form');
-const loginForm = document.querySelector('.js-login-form');
-const registerForm = document.querySelector('.js-register-form');
-const closeBtns = document.querySelectorAll('.js-close');
-const modal = document.querySelector('.js-modal');
-const modalContainer = document.querySelector('.js-modal-container');
-const switchTos = document.querySelectorAll('.js-switch-to');
-document.addEventListener('DOMContentLoaded', function() {
-    var emailInput = document.getElementById('email');
-    var emailError = document.getElementById('emailError');
-    var registerForm = document.querySelector('.js-register-form');
-    
-    var emailExists = false;
-    
-    emailInput.addEventListener('input', function() {
-        var email = this.value;
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.querySelector('.js-modal');
+    const openRegisterBtn = document.querySelector('.register-form');
+    const openLoginBtn = document.querySelector('.login-form');
+    const closeButtons = document.querySelectorAll('.js-close');
+    const switchToRegisterBtn = document.querySelectorAll('.js-switch-to')[0]; // Switch to Register from Login
+    const switchToLoginBtn = document.querySelectorAll('.js-switch-to')[1]; // Switch to Login from Register
 
-        if (email.length > 0) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', './user/check_email.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.exists) {
-                        emailExists = true;
-                        emailError.style.display = 'block';
-                        emailError.textContent = response.message;
-                    } else {
-                        emailExists = false;
-                        emailError.style.display = 'none';
-                    }
-                }
-            };
-            
-            xhr.onerror = function() {
-                console.error('Request failed');
-            };
-            
-            xhr.send('email=' + encodeURIComponent(email));
-        } else {
-            emailError.style.display = 'none';
-        }
+    function openModal() {
+        modal.classList.add('open');
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+    }
+
+    function switchToRegisterForm() {
+        document.querySelector('.js-register-form').classList.add('active');
+        document.querySelector('.js-login-form').classList.remove('active');
+    }
+
+    function switchToLoginForm() {
+        document.querySelector('.js-login-form').classList.add('active');
+        document.querySelector('.js-register-form').classList.remove('active');
+    }
+
+    // Event listeners for opening modals
+    openRegisterBtn.addEventListener('click', function () {
+        openModal();
+        switchToRegisterForm();
     });
 
-    registerForm.addEventListener('submit', function(event) {
-        if (emailExists) {
-            event.preventDefault(); // Ngăn không cho gửi form
-            emailError.style.display = 'block';
-            emailError.textContent = 'Email đã được sử dụng, vui lòng sử dụng email khác';
+    openLoginBtn.addEventListener('click', function () {
+        openModal();
+        switchToLoginForm();
+    });
+
+    // Event listeners for closing modals
+    closeButtons.forEach(button => {
+        button.addEventListener('click', closeModal);
+    });
+
+    // Event listeners for switching forms
+    switchToRegisterBtn.addEventListener('click', switchToRegisterForm);
+    switchToLoginBtn.addEventListener('click', switchToLoginForm);
+
+    // Close modal when clicking outside of modal body
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeModal();
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const switchToLogin = document.querySelectorAll('.js-switch-to');
+    const registerForm = document.querySelector('.js-register-form');
+    const loginForm = document.querySelector('.js-login-form');
 
+    switchToLogin.forEach(button => {
+        button.addEventListener('click', function() {
+            registerForm.classList.toggle('active');
+            loginForm.classList.toggle('active');
+        });
+    });
 
-
-
-function closeForm() {
-    modal.classList.remove('open');
-    loginForm.classList.remove('hidden');
-    registerForm.classList.remove('hidden');
-}
-
-function openLogin() {
-    modal.classList.add('open');
-    registerForm.classList.add('hidden');
-}
-
-function openRegister() {
-    modal.classList.add('open');
-    loginForm.classList.add('hidden');
-}
-function switchToForm() {
-    loginForm.classList.toggle('hidden');
-    registerForm.classList.toggle('hidden');
-}
-
-loginFormBtn.addEventListener('click', openLogin);
-registerFormBtn.addEventListener('click', openRegister);
-for(const switchTo of switchTos) {
-    switchTo.addEventListener('click', switchToForm);
-}
-for(const closeBtn of closeBtns) {
-    closeBtn.addEventListener('click', closeForm);
-}
-
-modalContainer.addEventListener('click', function(e) {
-    if(e.target === modalContainer) {
-        closeForm();
-    }
+    const closeModal = document.querySelectorAll('.js-close');
+    closeModal.forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelector('.js-modal').style.display = 'none';
+        });
+    });
 });

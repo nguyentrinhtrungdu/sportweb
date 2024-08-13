@@ -4,6 +4,9 @@ ob_start();
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
 
+// Khởi tạo biến $userName
+$userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Khách';
+
 // Instantiate category and brand classes
 $category = new category();
 $brand = new brand();
@@ -112,15 +115,14 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
         </ul>
 
         <ul class="header__navbar-list">
-            <?php if ($isLoggedIn ): ?>
+            <?php if ($isLoggedIn): ?>
                 <li class="header__navbar-item header__navbar-user">
-                    <img src="">
-                    <span class="header__navbar-user-name"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                    <span class="header__navbar-user-name"><?php echo htmlspecialchars($userName); ?></span>
                     <ul class="header__navbar-user-menu">
                         <li class="header__navbar-user-item">
+                            
                             <a href="../user/profile.php">Tài khoản của tôi</a>
                         </li>
-                       
                         <li class="header__navbar-user-item">
                             <a href="">Đơn mua</a>
                         </li>
@@ -134,6 +136,7 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                 <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
             <?php endif; ?>
         </ul>
+
         <!-- Search -->
         <div class="header-with-search">
             <div class="header__search">
@@ -189,6 +192,34 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
         </div>
     </nav>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchHistory = document.getElementById('search-history');
+    const searchBtn = document.getElementById('search-btn');
+
+    // Function to perform search
+    function performSearch() {
+        const query = searchInput.value;
+        if (query.length > 0) {
+            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
+        }
+    }
+
+    // Event listener for search button click
+    searchBtn.addEventListener('click', performSearch);
+
+    // Event listener for Enter key press
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default form submission
+            performSearch();
+        }
+    });
+});
+</script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

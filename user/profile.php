@@ -1,61 +1,26 @@
 <?php
+include 'connectdb.php';
 session_start();
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php'); // Redirect to login page if not logged in
+    header("Location: login.php");
     exit();
 }
 
-include 'connectdb.php'; // Include the database connection
-include 'user.php'; // Include user-related functions
-
-// Initialize the PDO instance
-$pdo = connectbd();
-
-if ($pdo === null) {
-    echo "Database connection failed.";
-    exit();
-}
-
-// Fetch user information
 $userId = $_SESSION['user_id'];
-$userInfo = getUserInfoById($pdo, $userId);
-
-if (!$userInfo) {
-    echo "User information not found.";
-    exit();
+$conn = connectbd();
+if ($conn) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
+    $stmt->bindParam(':id', $userId);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Tin Cá Nhân</title>
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/profile.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-</head>
-<body>
-    <main>
-        <?php include "../header.php"; ?>
-        <div class="container">
-            <section class="profile">
-                <h1>Thông Tin Cá Nhân</h1>
-                <div class="profile-info">
-                    <p><strong>Họ và tên:</strong> <?php echo htmlspecialchars($userInfo['name']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($userInfo['email']); ?></p>
-                    <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($userInfo['number']); ?></p>
-                    <p><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($userInfo['address']); ?></p>
-                    <!-- Add other information as needed -->
-                </div>
-                <a href="edit_profile.php" class="btn">Chỉnh sửa thông tin</a>
-            </section>
-        </div>
-    </main>
-    <?php include "../footer.php"; ?>
-</body>
-</html>
+<h1>Thông tin người dùng</h1>
+<p>Tên: <?php echo htmlspecialchars($user['name']); ?></p>
+<p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
+<p>Số điện thoại: <?php echo htmlspecialchars($user['number']); ?></p>
+<p>Địa chỉ: <?php echo htmlspecialchars($user['address']); ?></p>
+<p>Vai trò: <?php echo htmlspecialchars($user['role']); ?></p>
+<a href="logout.php">Đăng xuất</a>
