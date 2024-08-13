@@ -50,6 +50,7 @@
                         <th>Địa chỉ</th>
                         <th>Tổng giá</th>
                         <th>Trạng thái</th>
+                        <th>Mô tả</th>
                         <th>Chi tiết</th>
                         <th>Thao tác</th>
                     </tr>
@@ -68,7 +69,8 @@
                             echo "<td>" . $row['user_name'] . "</td>";
                             echo "<td>" . $row['address'] . "</td>";
                             echo "<td>" . $row['total'] . "</td>";
-                            echo "<td>" . $row['status'] . "</td>"; // Hiển thị trạng thái
+                            echo "<td>" . $row['status'] . "</td>";
+                            echo "<td>" . $row['descr'] . "</td>";
                             echo "<td><a href='orderdetails.php?order_id=" . $row['order_id'] . "'>Chi tiết</a></td>";
                             echo "<td><a href='orderstatusupdate.php?order_id=" . $row['order_id'] . "'>Sửa trạng thái</a></td>"; // Nút sửa trạng thái
                             echo "</tr>";

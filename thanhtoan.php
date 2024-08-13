@@ -11,32 +11,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $total += $item['product_price'] * $item['quantity'];
         }
 
-        // Retrieve user information
         $userClass = new User();
-        $user_id = $_SESSION['user_id']; // Ensure this matches the session key where user ID is stored
+        $user_id = $_SESSION['user_id'];
 
         if (isset($user_id)) {
             $user = $userClass->get_user_by_id($user_id);
 
             if ($user) {
                 $user_name = $user['name'];
-                $address = htmlspecialchars($_POST['address']); // Sanitize user input
+                $address = htmlspecialchars($_POST['address']);
+                $descr = htmlspecialchars($_POST['order_notes']); // This is the `descr` for `tbl_orders`
 
-                // Create an order
                 $orderClass = new Order();
 
                 try {
-                    $order_id = $orderClass->create_order($user_id, $user_name, $address, $total);
+                    $order_id = $orderClass->create_order($user_id, $user_name, $address, $total, $descr);
 
-                    // Insert order items
                     foreach ($_SESSION['cart'] as $item) {
-                        $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity'], $item['descr']);
+                        $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity']);
                     }
 
-                    // Clear cart
                     unset($_SESSION['cart']);
 
-                    // Redirect to a thank you page or order summary page
                     header("Location: thank_you.php?order_id=" . $order_id);
                     exit();
                 } catch (Exception $e) {
@@ -51,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Your cart is empty.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
