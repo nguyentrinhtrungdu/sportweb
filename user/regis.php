@@ -12,7 +12,7 @@ if (isset($_POST['dangky'])) {
     if (!empty($name) && !empty($email) && !empty($address) && !empty($pass) && $pass === $repass) {
         // Kiểm tra xem email có tồn tại không
         $conn = connectbd();
-        $sql = "SELECT COUNT(*) AS count FROM tbl_user WHERE email = :email";
+        $sql = "SELECT COUNT(*) AS count FROM users WHERE email = :email";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -22,7 +22,7 @@ if (isset($_POST['dangky'])) {
             echo "Email đã được sử dụng, vui lòng sử dụng email khác.";
         } else {
             // Thực hiện câu truy vấn SQL để đăng ký
-            $sql = "INSERT INTO tbl_user (name, email, address, pass) VALUES (:name, :email, :address, :pass)";
+            $sql = "INSERT INTO users (name, email, address, pass) VALUES (:name, :email, :address, :pass)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);

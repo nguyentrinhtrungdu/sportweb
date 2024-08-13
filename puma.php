@@ -9,6 +9,7 @@
     <title>GIÀY BÓNG ĐÁ PUMA</title>
 </head>
 <body>
+    
     <?php
     include ("./header.php");
     include_once __DIR__ . "/admin/class/product_class.php";

@@ -22,6 +22,10 @@
                     </ul>
                     
                 </li>
-
+                <li><a href="#">Đơn hàng</a>
+            <ul>
+                <li><a href="orderlist.php">Danh sách đơn hàng</a></li>
+            </ul>
+        </li>
             </ul>
         </div>

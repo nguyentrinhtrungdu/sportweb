@@ -3,7 +3,7 @@ function connectbd() {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "user"; // Tên database của bạn
+    $dbname = "websport"; // Tên database của bạn
 
     try {
         // Tạo kết nối PDO

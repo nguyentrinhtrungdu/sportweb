@@ -139,3 +139,113 @@ table{
     border: 1px solid brown;
     color: brown;
 }
+
+
+/* Order List */
+
+.admin-content-right-order_list {
+    width: 100%;
+}
+
+.admin-content-right-order_list h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.admin-content-right-order_list table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.admin-content-right-order_list table tr th,
+.admin-content-right-order_list table tr td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.admin-content-right-order_list table tr th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-content-right-order_list table tr td img {
+    width: 80px;
+    height: auto;
+}
+
+/* Phong cách cho nút sửa và xóa */
+.admin-content-right-order_list table tr td a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #3498db;
+    transition: background-color 0.3s ease;
+    
+}
+
+.admin-content-right-order_list table tr td a:hover {
+    background-color: #2980b9;
+}
+
+.admin-content-right-order_list table tr td a.delete {
+    background-color: #e74c3c;
+}
+
+.admin-content-right-order_list table tr td a.delete:hover {
+    background-color: #c0392b;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+}
+
+.order-status span {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.order-status button {
+    height: 30px;
+    width: 80px;
+    cursor: pointer;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.order-status button:hover {
+    background-color: #0056b3;
+}
+
+.admin-content-right-order_details {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.admin-content-right-order_details h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.admin-content-right-order_details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.admin-content-right-order_details strong {
+    color: #555;
+}
+
