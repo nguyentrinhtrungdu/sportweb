@@ -121,7 +121,6 @@
     <!-- footer -->
     <?php include ("./footer.php"); ?>
 
-    <!-- Modal layout -->
-    <?php include ("./modal.php"); ?>
+    
 </body>
 </html>

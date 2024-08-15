@@ -12,6 +12,8 @@
 <body>
     <div class="main">
         <?php
+        session_start();
+
         include ("./header.php");
         ?>
    
@@ -183,11 +185,6 @@
         include ("./footer.php");
         ?>
     </div>
-    <!--Modal layout-->
-    <?php
-        include ("./modal.php");
-        ?>
-      
     <script src="banner.js"></script>
 </body>
 </html>

@@ -11,7 +11,12 @@
 </head>
 <body>
     <div class="main">
-        <?php include ("./header.php"); ?>
+        session_start();
+
+        <?php 
+        session_start();
+
+        include ("./header.php"); ?>
 
         <!-- container -->
         <div class="container-bao-hanh"> 
@@ -45,9 +50,6 @@
         <!-- footer -->
     <?php include ("./footer.php"); ?>
 
-<!-- Modal layout -->
-<?php include ("./modal.php"); ?>
-      
     <script src="banner.js"></script>
 </body>
 </html>

@@ -10,6 +10,8 @@
 </head>
 <body>
     <?php
+    session_start();
+
 include ("./header.php");
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
@@ -118,8 +120,5 @@ $brands = $brandClass->show_brand();
 
     <!-- footer -->
     <?php include ("./footer.php"); ?>
-
-    <!-- Modal layout -->
-    <?php include ("./modal.php"); ?>
 </body>
 </html>

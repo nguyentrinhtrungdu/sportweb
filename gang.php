@@ -10,9 +10,11 @@
 </head>
 <body>
     <?php
+    session_start();
+
     include ("./header.php");
     include_once __DIR__ . "/admin/class/product_class.php";
-
+    
     $productClass = new product();
     $all_products = $productClass->show_product();
     // Get filters from query string if exists
@@ -120,8 +122,5 @@
 
     <!-- footer -->
     <?php include ("./footer.php"); ?>
-
-    <!-- Modal layout -->
-    <?php include ("./modal.php"); ?>
 </body>
 </html>

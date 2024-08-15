@@ -91,6 +91,42 @@ class User {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ?: null;
     }
+    public function getAllUsers() {
+        $sql = "SELECT * FROM users";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt;
+    }
+
+    public function delete_account($user_id) {
+        $query = "DELETE FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     
+        if ($stmt->execute()) {
+            header('Location: accountlist.php');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateUser($user_id, $name, $email, $num, $address, $role) {
+        try {
+            $stmt = $this->pdo->prepare("UPDATE users SET name = :name, email = :email, num = :num, address = :address, role = :role WHERE user_id = :user_id");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':num', $num);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':role', $role);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Update user error: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>

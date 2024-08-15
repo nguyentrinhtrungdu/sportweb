@@ -31,6 +31,8 @@ class User {
         }
     }
 
+    
+    
     // Add other user-related methods as needed
 }
 

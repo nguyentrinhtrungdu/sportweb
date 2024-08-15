@@ -11,7 +11,7 @@
     </head>
 <body>
     <header>
-        <h1>TOP</h1>
+        <h1>ADMIN</h1>
         <a href="../user/logout.php">Đăng xuất</a>
     </header>   
     

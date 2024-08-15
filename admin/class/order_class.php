@@ -61,7 +61,7 @@ class Order {
     }
 
     public function show_orders() {
-        $query = "SELECT o.order_id, u.name AS user_name, o.address, o.total, o.status, o.descr
+        $query = "SELECT o.order_id, u.name AS user_name, o.address, o.total, o.status, o.descr, o.created_at
                   FROM tbl_orders o
                   JOIN users u ON o.user_id = u.user_id
                   ORDER BY o.order_id DESC";

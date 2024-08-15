@@ -54,7 +54,6 @@ class Database {
         }
     }
 
-    // New method to prepare statements
     public function prepare($query) {
         $stmt = $this->connection->prepare($query);
 
@@ -65,12 +64,10 @@ class Database {
         return $stmt;
     }
     
-    // New method to get the last inserted ID
     public function get_last_insert_id() {
         return $this->connection->insert_id;
     }
 
-    // Getter method to access the connection
     public function getConnection() {
         return $this->connection;
     }

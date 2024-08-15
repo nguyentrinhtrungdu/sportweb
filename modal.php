@@ -24,7 +24,7 @@
             <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
         <span>hoặc sử dụng email của bạn để đăng ký</span>
-
+    
         <div class="form-group">
             <input id="fullname" name="name" type="text" placeholder="Nhập họ và tên" class="form-control">
             <span class="form-message"></span>
@@ -35,6 +35,10 @@
         </div>
         <div class="form-group">
             <input id="address" name="address" type="address" placeholder="Nhập địa chỉ" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="form-group">
+            <input id="num" name="num" type="text" placeholder="Nhập số điện thoại" class="form-control">
             <span class="form-message"></span>
         </div>
         <div class="form-group">

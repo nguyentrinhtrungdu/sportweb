@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $email = $_POST['email'];
     $address = $_POST['address'];
+    $num = $_POST['num'];
     // Xử lý đăng ký (thay đổi theo cách bạn xử lý đăng ký)
     $user = new User(); // Khởi tạo lớp người dùng
     $registerSuccess = $user->register($name, $password, $email,$address,$num);

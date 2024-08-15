@@ -125,11 +125,7 @@ include_once __DIR__ . "/path/to/header.php"; // Include the header
 
 
     <!-- footer -->
-    <?php include ("./footer.php"); ?>
-
-<!-- Modal layout -->
-
-      
+    <?php include ("./footer.php"); ?> 
     <script src="banner.js"></script>
 </body>
 </html>

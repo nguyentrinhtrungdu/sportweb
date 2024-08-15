@@ -11,6 +11,8 @@
 <body>
     
     <?php
+    session_start();
+
     include ("./header.php");
     include_once __DIR__ . "/admin/class/category_class.php";
     include_once __DIR__ . "/admin/class/brand_class.php";
@@ -178,7 +180,7 @@
     <!-- footer -->
     <?php include ("./footer.php"); ?>
 
-    <!-- Modal layout -->
+  
   
 
     <script>

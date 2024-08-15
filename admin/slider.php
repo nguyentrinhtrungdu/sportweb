@@ -23,9 +23,14 @@
                     
                 </li>
                 <li><a href="#">Đơn hàng</a>
-            <ul>
-                <li><a href="orderlist.php">Danh sách đơn hàng</a></li>
-            </ul>
-        </li>
+                    <ul>
+                        <li><a href="orderlist.php">Danh sách đơn hàng</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Tài khoản</a>
+                <ul>
+                    <li><a href="accountlist.php">Danh sách tài khoản</a></li>
+                </ul>
+            </li>
             </ul>
         </div>

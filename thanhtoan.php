@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($user) {
                 $user_name = $user['name'];
                 $address = htmlspecialchars($_POST['address']);
-                $descr = htmlspecialchars($_POST['order_notes']); // This is the `descr` for `tbl_orders`
+                $descr = htmlspecialchars($_POST['order_notes']); 
 
                 $orderClass = new Order();
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     unset($_SESSION['cart']);
 
-                    // header("Location: thank_you.php?order_id=" . $order_id);
+                    header("Location: paysuccess.php?order_id=" . $order_id);
                     exit();
                 } catch (Exception $e) {
                     echo "An error occurred while processing your order: " . $e->getMessage();

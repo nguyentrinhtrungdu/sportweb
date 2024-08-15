@@ -163,7 +163,6 @@ if ($product['brand_name'] === "GÄ‚NG TAY" || $product['category_name'] === "THÆ
     <!-- footer -->
     <?php include ("./footer.php"); ?>
 
-    <!-- Modal layout -->
     
 
     <script>
