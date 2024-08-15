@@ -22,11 +22,12 @@ if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $pass = $_POST['pass'];
     $num = $_POST['num'];
     $address = $_POST['address'];
     $role = $_POST['role'];
 
-    if ($user->updateUser($user_id, $name, $email, $num, $address, $role)) {
+    if ($user->updateUser($user_id, $name, $email,$pass, $num, $address, $role)) {
         header("Location: accountlist.php");
     } else {
         echo "<p>Có lỗi xảy ra khi cập nhật.</p>";
@@ -46,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
+
+            <label for="pass">Pass:</label>
+            <input type="text" id="pass" name="pass" value="<?php echo htmlspecialchars($user_data['pass']); ?>" required>
             
             <label for="num">Số điện thoại:</label>
             <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($user_data['num']); ?>" required>

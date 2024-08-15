@@ -1,8 +1,11 @@
 <?php
 session_start();
 ob_start();
-include ("./header.php");
+include("./header.php");
 include_once __DIR__ . "/admin/class/product_class.php";
+
+// Check if user is logged in
+$is_logged_in = isset($_SESSION['user_id']);
 
 // Handle remove item from cart
 if (isset($_GET['remove_from_cart'])) {
@@ -17,7 +20,7 @@ if (isset($_GET['remove_from_cart'])) {
 
 // Fetch product details
 $productClass = new product();
-$product_id = isset($_GET['product_id']) ? (int)$_GET['product_id'] : 1; // Ensure product_id is an integer
+$product_id = isset($_GET['product_id']) ? (int)$_GET['product_id'] : 1;
 $all_products = $productClass->show_product();
 
 $product = null;
@@ -31,7 +34,7 @@ while ($p = $all_products->fetch_assoc()) {
 // Handle add to cart action
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($product) {
-        $size = $_POST['size'];
+        $size = $_POST['size'] ?? null;
         $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
         $cart_item = [
             'product_id' => $product['product_id'],
@@ -59,10 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (isset($_POST['buy_now'])) {
-            header("Location: thanhtoan.php");
-            exit();
+            if ($is_logged_in) {
+                header("Location: thanhtoan.php");
+                exit();
+            } else {
+                header("Location: modal.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
+                exit();
+            }
         } else {
-            // Redirect to avoid resubmission on page refresh
             header("Location: " . $_SERVER['REQUEST_URI']);
             exit();
         }
@@ -79,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/donhang.css">
-    <title>Đơn Hàng</title>
+    <title>Chi Tiết Sản Phẩm</title>
     <style>
         .quantity-controls {
             display: flex;
@@ -103,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
-    <!-- container -->
     <div class="product-detail">
         <?php if ($product !== null): ?>
             <div class="product-detail__left">
@@ -116,30 +122,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <form method="post" action="">
                 <?php
-$showSizeOptions = false;
+                $showSizeOptions = false;
 
-if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "THƯƠNG HIỆU") {
-    $showSizeOptions = true;
-}
-?>
+                if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "THƯƠNG HIỆU") {
+                    $showSizeOptions = true;
+                }
+                ?>
 
-<?php if ($showSizeOptions): ?>
-    <label for="size">Chọn kích thước:</label>
-    <select name="size" id="size">
-        <?php 
-        if ($product['brand_name'] === "GĂNG TAY") {
-            // Hiển thị kích thước từ 6 đến 10 nếu sản phẩm thuộc nhãn hiệu "GĂNG TAY"
-            for ($size = 6; $size <= 10; $size++): ?>
-                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
-            <?php endfor;
-        } else if($product['category_name'] === "THƯƠNG HIỆU") {
-            for ($size = 39; $size <= 43; $size++): ?>
-                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
-            <?php endfor;
-        }
-        ?>
-    </select>
-<?php endif; ?>
+                <?php if ($showSizeOptions): ?>
+                    <label for="size">Chọn kích thước:</label>
+                    <select name="size" id="size">
+                        <?php 
+                        if ($product['brand_name'] === "GĂNG TAY") {
+                            for ($size = 6; $size <= 10; $size++): ?>
+                                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
+                            <?php endfor;
+                        } else if ($product['category_name'] === "THƯƠNG HIỆU") {
+                            for ($size = 39; $size <= 43; $size++): ?>
+                                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
+                            <?php endfor;
+                        }
+                        ?>
+                    </select>
+                <?php endif; ?>
 
                     <div class="product-detail__quantity">
                         <label for="quantity">Số lượng:</label>
@@ -161,9 +166,7 @@ if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "TH�
     </div>
 
     <!-- footer -->
-    <?php include ("./footer.php"); ?>
-
-    
+    <?php include("./footer.php"); ?>
 
     <script>
         document.getElementById('increment').addEventListener('click', function() {

@@ -139,6 +139,7 @@ class User {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':pass', $pass);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':role', $role);
@@ -168,5 +169,6 @@ class User {
             return false;
         }
     }
+    
 }
 ?>

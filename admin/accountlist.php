@@ -13,8 +13,10 @@ $show_users = $user->getAllUsers();
         <table>
             <tr>
                 <th>STT</th>
+                <th>User ID</th>
                 <th>Tên người dùng</th>
                 <th>Email</th>
+                <th>Password</th>
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
                 <th>Vai trò</th>
@@ -28,8 +30,10 @@ $show_users = $user->getAllUsers();
             ?>
             <tr>
                 <td><?php echo $i; ?></td>
+                <td><?php echo $result['user_id']; ?></td>
                 <td><?php echo $result['name']; ?></td>
                 <td><?php echo $result['email']; ?></td>
+                <td><?php echo $result['pass']; ?></td>
                 <td><?php echo $result['num']; ?></td>
                 <td><?php echo $result['address']; ?></td>
                 <td><?php echo $result['role']; ?></td>

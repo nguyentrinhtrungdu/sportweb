@@ -5,13 +5,10 @@ include_once __DIR__ . '/user.php'; // Đảm bảo đường dẫn đúng
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ POST
     $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $password = $_POST['login_password'] ?? '';
 
-    if (empty($email) || empty($password)) {
-        $txt_erro = "Vui lòng nhập cả email và mật khẩu.";
-    } else {
-        $user = new User();
-        $loginSuccess = $user->login($email, $password);
+    $user = new User();
+    $loginSuccess = $user->login($email, $password);
 
         if ($loginSuccess) {
             $_SESSION['user_name'] = $user->getUsernameByEmail($email);
@@ -19,16 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_role'] = $user->getUserRole($email);
             $_SESSION['user_art'] = $user->getArtByEmail($email);
 
-            header("Location: /index.php");
-            exit();
+        // Điều hướng dựa trên vai trò người dùng
+        if ($_SESSION['user_role'] === 'admin') {
+            header("Location: ../admin/categorylist.php "); // Đường dẫn đến trang admin
         } else {
-            $txt_erro = "Email hoặc mật khẩu không chính xác.";
+            header("Location: /index.php"); // Đường dẫn đến trang chính
         }
-    }
-
-    // Hiển thị thông báo lỗi nếu có
-    if (isset($txt_erro)) {
-        echo $txt_erro;
+        exit();
+    } else {
+        $txt_erro = "Email hoặc mật khẩu không chính xác.";
     }
 }
 ?>
