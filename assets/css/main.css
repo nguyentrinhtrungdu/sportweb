@@ -1222,3 +1222,14 @@
     transition: transform 0.5s ease; /* Smooth zoom effect */
     transform-origin: center center; /* Ensure the zoom is centered */
 }
+.header__navbar-user {
+    display: flex;
+    align-items: center;
+}
+
+.header__navbar-user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

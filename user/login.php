@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_name'] = $user->getUsernameByEmail($email);
             $_SESSION['user_id'] = $user->getUserId($email);
             $_SESSION['user_role'] = $user->getUserRole($email);
+            $_SESSION['user_art'] = $user->getArtByEmail($email);
 
             header("Location: /index.php");
             exit();

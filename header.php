@@ -3,8 +3,9 @@ ob_start();
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
 
-// Khởi tạo biến $userName
+// Initialize the user name and avatar
 $userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Khách';
+$userArt = isset($_SESSION['user_art']) ? $_SESSION['user_art'] : 'av.jpg';
 
 // Instantiate category and brand classes
 $category = new category();
@@ -23,7 +24,9 @@ while ($brand = $brands->fetch_assoc()) {
 // Check if user is logged in and their role
 $isLoggedIn = isset($_SESSION['user_id']);
 $isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
-$_SESSION['name'] = $user_name;
+
+
+
 // Handle removal of items from the cart
 if (isset($_GET['remove_from_cart'])) {
     $remove_index = (int)$_GET['remove_from_cart'];
@@ -116,10 +119,10 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
         <ul class="header__navbar-list">
             <?php if ($isLoggedIn): ?>
                 <li class="header__navbar-item header__navbar-user">
+                    <img src="./assets/img/avatar_defaut/<?php echo htmlspecialchars($userArt);?>" alt="" class="header__navbar-user-avatar">
                     <span class="header__navbar-user-name"><?php echo htmlspecialchars($userName); ?></span>
                     <ul class="header__navbar-user-menu">
                         <li class="header__navbar-user-item">
-                            
                             <a href="../user/profile.php">Tài khoản của tôi</a>
                         </li>
                         <li class="header__navbar-user-item">
@@ -131,8 +134,9 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                     </ul>
                 </li>
             <?php else: ?>
-              
-                <a href="modal.php"><li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li></a>
+                <a href="modal.php">
+                    <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
+                </a>
             <?php endif; ?>
         </ul>
 
@@ -177,12 +181,8 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <a href="thanhtoan.php" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
                             <?php else: ?>
-                                <div class="header__cart-list header__cart-list--no-cart">
-                                    <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
-                                    <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
-                                </div>
+                                <p class="header__cart-empty">Giỏ hàng của bạn đang trống.</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -192,57 +192,22 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
     </nav>
 </header>
 
+<!-- JavaScript for search history -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchHistory = document.getElementById('search-history');
-    const searchBtn = document.getElementById('search-btn');
-
-    // Function to perform search
-    function performSearch() {
-        const query = searchInput.value;
-        if (query.length > 0) {
-            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
-        }
+document.getElementById('search-input').addEventListener('input', function() {
+    var query = this.value.toLowerCase();
+    var historyContainer = document.getElementById('search-history');
+    historyContainer.innerHTML = ''; // Clear previous history
+    if (query.length > 0) {
+        <?php foreach ($searchHistory as $history): ?>
+            var item = '<?php echo addslashes($history); ?>';
+            if (item.toLowerCase().includes(query)) {
+                var div = document.createElement('div');
+                div.className = 'header__search-history-item';
+                div.textContent = item;
+                historyContainer.appendChild(div);
+            }
+        <?php endforeach; ?>
     }
-
-    // Event listener for search button click
-    searchBtn.addEventListener('click', performSearch);
-
-    // Event listener for Enter key press
-    searchInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent default form submission
-            performSearch();
-        }
-    });
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchHistory = document.getElementById('search-history');
-    const searchBtn = document.getElementById('search-btn');
-
-    // Function to perform search
-    function performSearch() {
-        const query = searchInput.value;
-        if (query.length > 0) {
-            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
-        }
-    }
-
-    // Event listener for search button click
-    searchBtn.addEventListener('click', performSearch);
-
-    // Event listener for Enter key press
-    searchInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent default form submission
-            performSearch();
-        }
-    });
 });
 </script>
