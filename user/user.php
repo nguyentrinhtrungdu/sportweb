@@ -126,7 +126,6 @@ class User {
         }
     }
 
-    // Cập nhật thông tin người dùng
     public function updateUser($user_id, $name, $email, $num, $address, $role, $avatarUrl = null) {
         try {
             // Xây dựng câu lệnh SQL để cập nhật thông tin người dùng
@@ -135,40 +134,39 @@ class User {
                 $sql .= ", art = :art";
             }
             $sql .= " WHERE user_id = :user_id";
-
+    
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':pass', $pass);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
+    
             if ($avatarUrl) {
                 $stmt->bindParam(':art', $avatarUrl);
             }
-
+    
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Lỗi cập nhật người dùng: " . $e->getMessage());
             return false;
         }
     }
-
-    // Cập nhật ảnh đại diện của người dùng
+    
     public function updateAvatar($user_id, $avatarUrl) {
         try {
             $stmt = $this->pdo->prepare("UPDATE users SET art = :art WHERE user_id = :user_id");
             $stmt->bindParam(':art', $avatarUrl);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
+    
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Lỗi cập nhật ảnh đại diện: " . $e->getMessage());
             return false;
         }
     }
+    
     
 }
 ?>

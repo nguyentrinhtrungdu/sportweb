@@ -1,25 +1,10 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-main {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
+.container-form{
+    padding: 120px ;
+    font-size: 2em;
 }
 
 .edit-profile h1 {
+    margin-top: 30px;
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
@@ -44,13 +29,13 @@ input[type="text"] {
     font-size: 14px;
 }
 
-.avatar-container {
+.avatar-container-a {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.avatar-container img {
+.avatar-container-a img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
