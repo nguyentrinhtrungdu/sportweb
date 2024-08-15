@@ -24,21 +24,14 @@ if (!$order_details) {
 // Lấy thông tin các sản phẩm trong đơn hàng
 $order_items = $order->get_order_items($order_id);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết đơn hàng</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+
 <body>
-   
-<h1>Chi tiết đơn hàng</h1>   
+
+
     <section class="admin-content">
         <div class="admin-content-right">
-            <div class="admin-content-right-order_details">   
-                       
+            <div class="admin-content-right-order_details">
+            <h1>Chi tiết đơn hàng</h1> 
                 <table>
                     <tr>
                         <th>Tên sản phẩm</th>

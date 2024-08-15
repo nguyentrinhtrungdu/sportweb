@@ -23,16 +23,13 @@
     $categoryClass = new category();
     $brandClass = new brand();
 
-    // Fetch all products
+
     $all_products = $productClass->show_product();
 
-    // Fetch all categories
     $categories = $categoryClass->show_category();
 
-    // Fetch all brands
     $brands = $brandClass->show_brand();
 
-    // Get the category ID for "THƯƠNG HIỆU"
     $thuongHieuCategoryId = null;
     while ($cat = $categories->fetch_assoc()) {
         if ($cat['category_name'] === 'THƯƠNG HIỆU') {
@@ -41,7 +38,6 @@
         }
     }
 
-    // Filter brands for the "THƯƠNG HIỆU" category
     $thuongHieuBrands = [];
     if ($thuongHieuCategoryId) {
         while ($brand = $brands->fetch_assoc()) {
@@ -51,11 +47,9 @@
         }
     }
 
-    // Get filters from query string if exists
     $brand_filter = isset($_GET['brand']) ? $_GET['brand'] : null;
     $price_filter = isset($_GET['price']) ? $_GET['price'] : 'all';
 
-    // Define price ranges
     $price_ranges = [
         'all' => 'Tất cả',
         '0-1000000' => '0 VNĐ ~ 1.000.000 VNĐ',
@@ -65,7 +59,6 @@
         '5000000-' => 'Trên 5.000.000 VNĐ'
     ];
 
-    // Filter products based on brand and price range
     $filtered_products = [];
     while ($product = $all_products->fetch_assoc()) {
         if (!$brand_filter || $product['brand_name'] === $brand_filter) {

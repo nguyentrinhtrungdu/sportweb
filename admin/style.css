@@ -178,7 +178,6 @@ table{
     height: auto;
 }
 
-/* Phong cách cho nút sửa và xóa */
 .admin-content-right-order_list table tr td a {
     text-decoration: none;
     padding: 5px 10px;
@@ -227,35 +226,47 @@ table{
     background-color: #0056b3;
 }
 
+
+/* Details */
 .admin-content-right-order_details {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 1000px;
+    width: 100%;
     
 }
 
-.admin-content-right-order_details h2 {
-    margin-top: 0;
+.admin-content-right-order_details h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #333;
 }
-
-.admin-content-right-order_details p {
-    margin: 10px 0;
-    font-size: 16px;
+.admin-content-right-order_details table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 20px;
 }
 
 .admin-content-right-order_details strong {
     color: #555;
 }
-
-.admin-content-right-account_list table {
-    width: 100%;
-    border-collapse: collapse;
+.admin-content-right-order_details table tr th,
+.admin-content-right-order_details table tr td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: center;
 }
 
+.admin-content-right-order_details table tr th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-content-right-order_details table tr td img {
+    width: 80px;
+    height: auto;
+}
+
+/* Account list */
 .admin-content-right-account_list th,
 .admin-content-right-account_list td {
     padding: 12px 15px;
@@ -273,6 +284,8 @@ table{
     background-color: #f9f9f9;
     
 }
+
+
 
 /* Row hover effect */
 .admin-content-right-account_list tr:hover {

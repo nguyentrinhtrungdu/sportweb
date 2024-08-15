@@ -5,8 +5,7 @@ include "slider.php";
 include "class/product_class.php";
 ?>
 
-    <section class="admin-content">
-        
+    <section class="admin-content">   
         <div class="admin-content-right">
             <div class="admin-content-right-order_list">
                 <h1>Danh sách đơn hàng</h1>
