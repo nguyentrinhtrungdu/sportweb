@@ -50,7 +50,6 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                 <?php while ($cat = $categories->fetch_assoc()): ?>
                     <li>
                         <a href="<?php 
-                            // Adjust the link based on category name
                             if ($cat['category_name'] === 'TẤT CẢ SẢN PHẨM') {
                                 echo 'allproduct.php';
                             } elseif ($cat['category_name'] === 'THƯƠNG HIỆU') {

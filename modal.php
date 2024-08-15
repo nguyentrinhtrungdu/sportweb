@@ -69,7 +69,7 @@
             <span class="form-message"></span>
         </div>
         <div class="form-group">
-            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <input id="login_password" name="login_password" type="password" placeholder="Nhập mật khẩu" class="form-control">
             <span class="form-message"></span>
         </div>
         <a href="#">Quên mật khẩu?</a>
@@ -126,7 +126,8 @@
                 formGroupSelector: '.form-group',
                 errorSelector: '.form-message',
                 rules: [
-                    Validator.isRequired('#login_username', 'Vui lòng nhập tên tài khoản'),
+                    Validator.isRequired('#email', 'Vui lòng nhập tên tài khoản'),
+                    Validator.isEmail('#email', 'Trường này phải là email'),
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
                     Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
