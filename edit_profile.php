@@ -12,6 +12,10 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 $userObj = new User();
 
+// Khởi tạo biến lỗi và thành công
+$errorMessage = '';
+$successMessage = '';
+
 // Xử lý khi người dùng gửi biểu mẫu
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -48,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Cập nhật thông tin người dùng
     if (empty($errorMessage)) {
         if ($userObj->updateUser($userId, $name, $email, $num, $address, 'user', $avatarUrl)) {
+            // Cập nhật session sau khi cập nhật thành công
+            $_SESSION['user_name'] = $name;
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_num'] = $num;
+            $_SESSION['user_address'] = $address;
+            $_SESSION['user_art'] = $avatarUrl;
+
             $successMessage = 'Thông tin đã được cập nhật thành công.';
         } else {
             $errorMessage = 'Đã xảy ra lỗi khi cập nhật thông tin.';
@@ -74,6 +85,7 @@ if (!$user) {
         .avatar-container {
             display: flex;
             align-items: center;
+            margin-bottom: 15px;
         }
         .avatar-container img {
             border-radius: 50%;
@@ -85,33 +97,67 @@ if (!$user) {
         .avatar-container input[type="file"] {
             display: none;
         }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <h1>Chỉnh sửa Hồ Sơ</h1>
 
-    <?php if (isset($successMessage)): ?>
-        <p style="color: green;"><?php echo htmlspecialchars($successMessage); ?></p>
+    <?php if (!empty($successMessage)): ?>
+        <div class="message" style="color: green;"><?php echo htmlspecialchars($successMessage); ?></div>
     <?php endif; ?>
 
-    <?php if (isset($errorMessage)): ?>
-        <p style="color: red;"><?php echo htmlspecialchars($errorMessage); ?></p>
+    <?php if (!empty($errorMessage)): ?>
+        <div class="message" style="color: red;"><?php echo htmlspecialchars($errorMessage); ?></div>
     <?php endif; ?>
 
     <form action="edit_profile.php" method="post" enctype="multipart/form-data">
-        <label for="name">Tên:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-        
-        <label for="num">Số điện thoại:</label>
-        <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($user['num']); ?>" required>
-        
-        <label for="address">Địa chỉ:</label>
-        <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>" required>
+        <div class="form-group">
+            <label for="name">Tên:</label>
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+        </div>
 
-        <div class="avatar-container">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="num">Số điện thoại:</label>
+            <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($user['num']); ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Địa chỉ:</label>
+            <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>" required>
+        </div>
+
+        <div class="form-group avatar-container">
             <label for="avatar-upload">
                 <img id="avatar-preview" src="./assets/img/avatar_defaut/<?php echo htmlspecialchars($user['art']); ?>" alt="Avatar">
             </label>

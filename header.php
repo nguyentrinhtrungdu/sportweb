@@ -7,6 +7,7 @@ include_once __DIR__ . "/admin/class/brand_class.php";
 $userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Khách';
 $userArt = isset($_SESSION['user_art']) ? $_SESSION['user_art'] : 'av.jpg';
 
+
 // Instantiate category and brand classes
 $category = new category();
 $brand = new brand();
