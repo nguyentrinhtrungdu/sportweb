@@ -13,13 +13,14 @@ class User {
     public function register($name, $password, $email, $address, $num) {
         try {
             // Adjusted SQL to match all columns except the auto-incrementing `user_id`
-            $sql = "INSERT INTO users (pass, email, role, name, num, address) VALUES (:password, :email, 'user', :name, :num, :address)";
+            $sql = "INSERT INTO users (pass, email, role, name, num, address, avt) VALUES (:password, :email, 'user', :name, :num, :address,:avt)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':avt', $avt);
     
             if ($stmt->execute()) {
                 return true;
@@ -112,21 +113,28 @@ class User {
         }
     }
 
-    public function updateUser($user_id, $name, $email, $num, $address, $role) {
+    public function updateUser($user_id, $name, $email, $pass, $num, $address, $role) {
         try {
-            $stmt = $this->pdo->prepare("UPDATE users SET name = :name, email = :email, num = :num, address = :address, role = :role WHERE user_id = :user_id");
+            $stmt = $this->pdo->prepare("UPDATE users SET name = :name, email = :email, pass = :pass, num = :num, address = :address, role = :role WHERE user_id = :user_id");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':pass', $pass);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     
-            return $stmt->execute();
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                error_log("Update error: " . print_r($stmt->errorInfo(), true));
+                return false;
+            }
         } catch (PDOException $e) {
             error_log("Update user error: " . $e->getMessage());
             return false;
         }
     }
+    
 }
 ?>

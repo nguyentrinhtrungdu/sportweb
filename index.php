@@ -15,7 +15,6 @@
     session_start(); // Ensure session_start() is called here only
 
     // Other code here
-    include_once __DIR__ . "/path/to/header.php"; // Include the header
     ?>
     <div class="main">
         <?php
