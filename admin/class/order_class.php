@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . "/../database.php";
+include_once __DIR__ . '/../database.php';
 
 class Order {
     private $db;
@@ -83,6 +83,18 @@ class Order {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('iissdi', $order_id, $product_id, $product_name, $product_img, $product_price, $quantity);
         return $stmt->execute();
+    }
+
+    // Thêm phương thức mới để lấy tất cả đơn hàng của người dùng
+    public function get_orders_by_user_id($user_id) {
+        $query = "SELECT o.order_id, o.address, o.total, o.status, o.descr, o.created_at
+                  FROM tbl_orders o
+                  WHERE o.user_id = ?
+                  ORDER BY o.created_at DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // Trả về mảng kết quả
     }
 }
 ?>

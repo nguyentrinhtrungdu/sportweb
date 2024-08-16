@@ -123,10 +123,10 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                     <span class="header__navbar-user-name"><?php echo htmlspecialchars($userName); ?></span>
                     <ul class="header__navbar-user-menu">
                         <li class="header__navbar-user-item">
-                            <a href="../user/profile.php">Tài khoản của tôi</a>
+                            <a href="../edit_profile.php">Tài khoản của tôi</a>
                         </li>
                         <li class="header__navbar-user-item">
-                            <a href="">Đơn mua</a>
+                            <a href="/myorder.php">Đơn mua</a>
                         </li>
                         <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
                             <a href="../user/logout.php">Đăng xuất</a>
@@ -134,7 +134,7 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                     </ul>
                 </li>
             <?php else: ?>
-                <a href="modal.php">
+                <a class="dangnhap-nav" href="modal.php">
                     <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
                 </a>
             <?php endif; ?>

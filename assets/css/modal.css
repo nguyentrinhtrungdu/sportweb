@@ -343,3 +343,7 @@ display: inline-flex;
     color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+}

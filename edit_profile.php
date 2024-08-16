@@ -1,7 +1,7 @@
 <?php
 session_start();
 include './user/connectdb.php';
-include './user/user.php'; // Bao gồm tệp User.php chứa lớp User
+include './user/user.php';
 
 // Kiểm tra xem người dùng đã đăng nhập chưa
 if (!isset($_SESSION['user_id'])) {
@@ -10,7 +10,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = $_SESSION['user_id'];
-$userObj = new User();
+$userObj = new User($pdo);
+
+// Lấy email của người dùng
+$email = $userObj->getEmailById($userId); // Đảm bảo rằng phương thức getEmailById đã được định nghĩa trong lớp User
 
 // Khởi tạo biến lỗi và thành công
 $errorMessage = '';
@@ -19,20 +22,16 @@ $successMessage = '';
 // Xử lý khi người dùng gửi biểu mẫu
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
     $num = trim($_POST['num']);
     $address = trim($_POST['address']);
-    $avatarUrl = $userObj->getArtByEmail($userObj->getUsernameByEmail($email)); // Lấy ảnh hiện tại
+    $avatarUrl = $userObj->getArtByEmail($email); // Lấy ảnh hiện tại của người dùng
 
     // Xử lý ảnh đại diện
     if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['avatar']['tmp_name'];
         $fileName = $_FILES['avatar']['name'];
-        $fileSize = $_FILES['avatar']['size'];
-        $fileType = $_FILES['avatar']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
-        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
         if (in_array($fileExtension, $allowedExtensions)) {
             $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
@@ -51,10 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Cập nhật thông tin người dùng
     if (empty($errorMessage)) {
-        if ($userObj->updateUser($userId, $name, $email, $num, $address, 'user', $avatarUrl)) {
+        if ($userObj->updateUser($userId, $name, $num, $address, $userObj->getUserRole($email), $avatarUrl)) {
             // Cập nhật session sau khi cập nhật thành công
             $_SESSION['user_name'] = $name;
-            $_SESSION['user_email'] = $email;
             $_SESSION['user_num'] = $num;
             $_SESSION['user_address'] = $address;
             $_SESSION['user_art'] = $avatarUrl;
@@ -80,52 +78,17 @@ if (!$user) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <title>Chỉnh sửa Hồ Sơ</title>
-    <style>
-        .avatar-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .avatar-container img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            cursor: pointer;
-        }
-        .avatar-container input[type="file"] {
-            display: none;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .message {
-            margin-bottom: 15px;
-        }
-    </style>
+ 
 </head>
 <body>
+<?php
+        include("./header.php");
+        ?>
+    <div class="container">
     <h1>Chỉnh sửa Hồ Sơ</h1>
 
     <?php if (!empty($successMessage)): ?>
@@ -137,37 +100,38 @@ if (!$user) {
     <?php endif; ?>
 
     <form action="edit_profile.php" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Tên:</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label for="num">Số điện thoại:</label>
-            <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($user['num']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label for="address">Địa chỉ:</label>
-            <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>" required>
-        </div>
-
+        <div class="form-container">
         <div class="form-group avatar-container">
             <label for="avatar-upload">
                 <img id="avatar-preview" src="./assets/img/avatar_defaut/<?php echo htmlspecialchars($user['art']); ?>" alt="Avatar">
             </label>
             <input type="file" id="avatar-upload" name="avatar" accept="image/*">
         </div>
+        <div class="div">
+            <div class="form-group">
+                <label for="name">Tên:</label>
+                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+            </div>
 
-        <button type="submit">Cập nhật</button>
+            <div class="form-group">
+                <label for="num">Số điện thoại:</label>
+                <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($user['num']); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>" required>
+            </div>
+        </div>
+        </div>
+
+        <div class="button-nav"><button type="submit">Cập nhật</button></div>
     </form>
+      
+    <div class="quaylai">
+    <a href="#" id="back-link">Quay lại</a>
+</div>
 
-    <a href="./user/profile.php">Quay lại</a>
 
     <script>
         document.getElementById('avatar-upload').addEventListener('change', function() {
@@ -177,6 +141,18 @@ if (!$user) {
             };
             reader.readAsDataURL(this.files[0]);
         });
+        document.addEventListener('DOMContentLoaded', function() {
+        // Lấy URL trang trước đó từ sessionStorage
+        var previousPage = sessionStorage.getItem('previousPage');
+
+        // Nếu URL tồn tại, cập nhật liên kết quay lại
+        if (previousPage) {
+            document.getElementById('back-link').href = previousPage;
+        } else {
+            // Nếu không có URL trước đó, quay về trang chính (hoặc trang mặc định)
+            document.getElementById('back-link').href = 'index.php'; // Thay thế 'index.php' bằng trang mặc định của bạn
+        }
+    });
     </script>
 </body>
 </html>

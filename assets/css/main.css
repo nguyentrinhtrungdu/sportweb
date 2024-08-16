@@ -215,6 +215,7 @@
 
 .header__navbar-list{
     list-style: none;
+    height: 50px;
     padding-left: 0;
     margin: 3px 20px 0 0;
     display: flex;
@@ -1232,4 +1233,10 @@
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
+            cursor: pointer;
+}
+.dangnhap-nav{
+    display: flex;
+    align-items: center;
 }

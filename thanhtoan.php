@@ -1,7 +1,17 @@
 <?php
 session_start();
 include __DIR__ . "/user/user.php";
-include __DIR__ . "/admin/class/order_class.php"; 
+include __DIR__ . "/admin/class/order_class.php";
+include __DIR__ . '/user/connectdb.php'; // Bao gồm tệp kết nối cơ sở dữ liệu
+
+// Tạo đối tượng PDO
+try {
+    $pdo = new PDO('mysql:host=localhost;dbname=websport', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    error_log("Lỗi kết nối cơ sở dữ liệu: " . $e->getMessage());
+    die("Lỗi kết nối cơ sở dữ liệu.");
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
@@ -10,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $total += $item['product_price'] * $item['quantity'];
         }
 
-        $userClass = new User();
+        $userClass = new User($pdo); // Truyền đối tượng PDO vào khởi tạo User
         $user_id = $_SESSION['user_id'];
 
         if (isset($user_id)) {
@@ -21,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $address = htmlspecialchars($_POST['address']);
                 $descr = htmlspecialchars($_POST['order_notes']); 
 
-                $orderClass = new Order();
+                $orderClass = new Order($pdo); // Truyền đối tượng PDO vào khởi tạo Order
 
                 try {
                     $order_id = $orderClass->create_order($user_id, $user_name, $address, $total, $descr);
@@ -46,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Your cart is empty.";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <textarea id="order-notes" name="order_notes"></textarea>
                 </div>
 
-              
-
                 <div class="btn-container">
                     <button type="submit" class="btn-checkout">Thanh toán</button>
                 </div>
@@ -112,7 +119,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php endif; ?>
     </div>
 
-   
-            
 </body>
 </html>

@@ -1,0 +1,80 @@
+/* myorder.css */
+
+.order-container {
+    margin-top: 120px; /* Đặt khoảng cách trên */
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2em;
+}
+
+.order-item {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.thongtin-container{
+    padding: 20px;
+    line-height: 32px;
+}
+.order-item-detail{
+    padding: 20px;
+    line-height: 20px;
+}
+.order-item h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 3em;
+}
+.order-item p {
+    margin-top: 0;
+    color: #333;
+    font-size: 2em;
+}
+.order-details {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.order-details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-details th, .order-details td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.order-details th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.order-details td img {
+    width: 100px;
+    height: auto;
+}
+
+.order-summary .message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e7f3e7;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    color: #155724;
+}
+.order-item-detail img{
+    width: 200px;
+}

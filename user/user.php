@@ -4,8 +4,7 @@ include_once __DIR__ . '/connectdb.php'; // Bao gồm tệp kết nối cơ sở
 class User {
     private $pdo;
 
-    public function __construct() {
-        global $pdo; // Sử dụng biến kết nối PDO từ tệp connectdb.php
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
@@ -16,7 +15,7 @@ class User {
 
             $sql = "INSERT INTO users (pass, email, role, name, num, address, art) VALUES (:password, :email, 'user', :name, :num, :address, :art)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':password', $password); // Lưu trữ mật khẩu gốc
+            $stmt->bindParam(':password', $password); // Lưu trữ mật khẩu dưới dạng văn bản thuần túy
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':num', $num);
@@ -37,12 +36,12 @@ class User {
 
     // Xử lý đăng nhập
     public function login($email, $password) {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email AND pass = :pass");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':pass', $password); // So sánh mật khẩu gốc
         $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user && $password === $user['pass']) { // So sánh mật khẩu gốc
             return true;
         }
         return false;
@@ -57,6 +56,27 @@ class User {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? $user['user_id'] : null;
+    }
+
+    // Lấy email người dùng từ ID
+    public function getEmailById($userId) {
+        $sql = "SELECT email FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? $user['email'] : null;
+    }
+
+    // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+    public function emailExists($email) {
+        $sql = "SELECT 1 FROM users WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetchColumn() !== false; // Trả về true nếu tồn tại, false nếu không
     }
 
     // Lấy vai trò người dùng từ email
@@ -127,10 +147,10 @@ class User {
     }
 
     // Cập nhật thông tin người dùng
-    public function updateUser($user_id, $name, $email, $pass, $num, $address, $role, $avatarUrl = null) {
+    public function updateUser($user_id, $name, $num, $address, $role, $avatarUrl = null) {
         try {
             // Xây dựng câu lệnh SQL để cập nhật thông tin người dùng
-            $sql = "UPDATE users SET name = :name, email = :email, pass = :pass, num = :num, address = :address, role = :role";
+            $sql = "UPDATE users SET name = :name, num = :num, address = :address, role = :role";
             if ($avatarUrl) {
                 $sql .= ", art = :art";
             }
@@ -138,8 +158,6 @@ class User {
     
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':pass', $pass);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':role', $role);
@@ -155,7 +173,7 @@ class User {
             return false;
         }
     }
-
+    
     // Cập nhật avatar người dùng
     public function updateAvatar($user_id, $avatarUrl) {
         try {
@@ -170,3 +188,4 @@ class User {
         }
     }
 }
+?>

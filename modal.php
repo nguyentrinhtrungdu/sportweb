@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +36,7 @@
             <input id="email" name="email" type="email" placeholder="Nhập Email" class="form-control">
             <span class="form-message"></span>
         </div>
+
         <div class="form-group">
             <input id="address" name="address" type="address" placeholder="Nhập địa chỉ" class="form-control">
             <span class="form-message"></span>

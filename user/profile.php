@@ -3,15 +3,19 @@ session_start();
 include 'connectdb.php';
 include 'user.php'; // Bao gồm tệp User.php chứa lớp User
 
-
 // Kiểm tra xem người dùng đã đăng nhập chưa
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
+// Khởi tạo đối tượng PDO từ connectdb.php
+$pdo = new PDO($dsn, $username, $password, $options); // Cập nhật biến $dsn, $username, $password và $options từ connectdb.php
+
+// Tạo đối tượng User với PDO
+$userObj = new User($pdo);
+
 $userId = $_SESSION['user_id'];
-$userObj = new User();
 
 // Lấy thông tin người dùng dựa trên user_id
 $user = $userObj->get_user_by_id($userId);
@@ -35,7 +39,7 @@ if (!$user) {
 
     <?php if ($user): ?>
         <p>Ảnh đại diện:</p>
-        <img src="../assets/img/avatar_defaut/<?php echo htmlspecialchars($user['art'] ?: 'default_avatar.jpg'); ?>" alt="User Avatar" >
+        <img src="../assets/img/avatar_defaut/<?php echo htmlspecialchars($user['art'] ?: 'default_avatar.jpg'); ?>" alt="User Avatar">
 
         <p>Tên: <?php echo htmlspecialchars($user['name']); ?></p>
         <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
