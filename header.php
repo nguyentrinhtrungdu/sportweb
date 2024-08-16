@@ -181,8 +181,12 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                <a href="thanhtoan.php" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
                             <?php else: ?>
-                                <p class="header__cart-empty">Giỏ hàng của bạn đang trống.</p>
+                                <div class="header__cart-list header__cart-list--no-cart">
+                                    <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
+                                    <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -194,20 +198,28 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
 
 <!-- JavaScript for search history -->
 <script>
-document.getElementById('search-input').addEventListener('input', function() {
-    var query = this.value.toLowerCase();
-    var historyContainer = document.getElementById('search-history');
-    historyContainer.innerHTML = ''; // Clear previous history
-    if (query.length > 0) {
-        <?php foreach ($searchHistory as $history): ?>
-            var item = '<?php echo addslashes($history); ?>';
-            if (item.toLowerCase().includes(query)) {
-                var div = document.createElement('div');
-                div.className = 'header__search-history-item';
-                div.textContent = item;
-                historyContainer.appendChild(div);
-            }
-        <?php endforeach; ?>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchHistory = document.getElementById('search-history');
+    const searchBtn = document.getElementById('search-btn');
+
+    // Function to perform search
+    function performSearch() {
+        const query = searchInput.value;
+        if (query.length > 0) {
+            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
+        }
     }
+
+    // Event listener for search button click
+    searchBtn.addEventListener('click', performSearch);
+
+    // Event listener for Enter key press
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default form submission
+            performSearch();
+        }
+    });
 });
 </script>

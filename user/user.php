@@ -126,10 +126,11 @@ class User {
         }
     }
 
-    public function updateUser($user_id, $name, $email, $num, $address, $role, $avatarUrl = null) {
+    // Cập nhật thông tin người dùng
+    public function updateUser($user_id, $name, $email, $pass, $num, $address, $role, $avatarUrl = null) {
         try {
             // Xây dựng câu lệnh SQL để cập nhật thông tin người dùng
-            $sql = "UPDATE users SET name = :name, email = :email, num = :num, address = :address, role = :role";
+            $sql = "UPDATE users SET name = :name, email = :email, pass = :pass, num = :num, address = :address, role = :role";
             if ($avatarUrl) {
                 $sql .= ", art = :art";
             }
@@ -138,6 +139,7 @@ class User {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':pass', $pass);
             $stmt->bindParam(':num', $num);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':role', $role);
@@ -153,7 +155,8 @@ class User {
             return false;
         }
     }
-    
+
+    // Cập nhật avatar người dùng
     public function updateAvatar($user_id, $avatarUrl) {
         try {
             $stmt = $this->pdo->prepare("UPDATE users SET art = :art WHERE user_id = :user_id");
@@ -166,7 +169,4 @@ class User {
             return false;
         }
     }
-    
-    
 }
-?>

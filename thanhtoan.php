@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once __DIR__ . "/user/user.php";
-include_once __DIR__ . "/admin/class/order_class.php"; // Ensure this path is correct
+include __DIR__ . "/user/user.php";
+include __DIR__ . "/admin/class/order_class.php"; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
