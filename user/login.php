@@ -1,13 +1,11 @@
 <?php
 session_start();
-include_once __DIR__ . '/connectdb.php'; // Bao gồm tệp kết nối cơ sở dữ liệu
-include_once __DIR__ . '/user.php'; // Bao gồm lớp User
+include_once __DIR__ . '/connectdb.php';
+include_once __DIR__ . '/user.php';
 
-// Khởi tạo đối tượng User với tham số $pdo
 $user = new User($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Lấy dữ liệu từ POST
     $email = $_POST['email'] ?? '';
     $password = $_POST['login_password'] ?? '';
 
@@ -19,15 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_role'] = $user->getUserRole($email);
         $_SESSION['user_art'] = $user->getArtByEmail($email);
 
-        // Điều hướng dựa trên vai trò người dùng
         if ($_SESSION['user_role'] === 'admin') {
-            header("Location: ../admin/categorylist.php "); // Đường dẫn đến trang admin
+            header("Location: ../admin/categorylist.php");
         } else {
-            header("Location: /index.php"); // Đường dẫn đến trang chính
+            header("Location: /index.php");
         }
         exit();
     } else {
-        $txt_erro = "Email hoặc mật khẩu không chính xác.";
+        $_SESSION['login_error'] = 'Sai email hoặc mật khẩu. Vui lòng thử lại.';
+        header("Location: /modal.php");
+        exit();
     }
 }
 ?>

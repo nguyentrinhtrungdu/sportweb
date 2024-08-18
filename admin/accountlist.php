@@ -2,8 +2,9 @@
 include "header.php";
 include "slider.php";
 include_once __DIR__ . '/../user/user.php';
+include_once __DIR__ . '/../user/connectdb.php'; // Thêm dòng này để kết nối CSDL
 
-$user = new User();
+$user = new User($pdo); // Truyền đối tượng PDO vào đây
 $show_users = $user->getAllUsers(); 
 ?>
 

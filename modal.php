@@ -59,28 +59,38 @@ session_start();
 
         <!-- Sign In Form -->
         <div class="form-container sign-in">
-    <form id="sign-in-form" method="POST" action="./user/login.php">
-        <h1>Đăng nhập</h1>
-        <div class="social-icons">
-            <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-            <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
-        <span>hoặc sử dụng tài khoản của bạn</span>
-        <div class="form-group">
-            <input id="email" name="email" type="email" placeholder="Nhập email" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <input id="login_password" name="login_password" type="password" placeholder="Nhập mật khẩu" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <a href="#">Quên mật khẩu?</a>
+            <form id="sign-in-form" method="POST" action="./user/login.php">
+                <h1>Đăng nhập</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>hoặc sử dụng tài khoản của bạn</span>
+                
+                
+                <div class="form-group">
+                    <input id="email" name="email" type="email" placeholder="Nhập email" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <input id="login_password" name="login_password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <a href="#">Quên mật khẩu?</a>
+                <?php if (isset($_SESSION['login_error'])): ?>
+                    <div class="form-message" style="color: red;">
+                        <?php
+                        echo $_SESSION['login_error'];
+                        unset($_SESSION['login_error']);
+                        ?>
+                    </div>
+                <?php endif; ?>
 
-        <button type="submit">Đăng nhập</button>
-    </form>
-</div>
+                <button type="submit">Đăng nhập</button>
+            </form>
+        </div>
 
         <!-- Toggle Container -->
         <div class="toggle-container">
@@ -113,7 +123,7 @@ session_start();
                 rules: [
                    
                     Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
-                    Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
+                    Validator.isRequired('#num', 'vui lòng nhập số điện thoại'),
                     Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isEmail('#email', 'Trường này phải là email'),
                     Validator.isRequired('#address', 'Vui lòng nhập địa chỉ của bạn'),

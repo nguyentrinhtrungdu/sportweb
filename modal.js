@@ -59,7 +59,7 @@ Validator({
                     emailMessage.style.color = 'red';
                 } else if (data.status === 'valid') {
                     emailMessage.textContent = data.message;
-                    emailMessage.style.color = 'green';
+                    emailMessage.style.color = 'red';
                 }
             })
             .catch(error => console.error('Error:', error));

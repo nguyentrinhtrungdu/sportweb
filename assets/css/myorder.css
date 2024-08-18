@@ -1,7 +1,5 @@
-/* myorder.css */
-
-.order-container {
-    margin-top: 120px; /* Đặt khoảng cách trên */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');.order-container {
+    margin-top: 120px;
     padding: 20px;
     max-width: 1200px;
     margin-left: auto;
@@ -11,36 +9,84 @@
 h2 {
     text-align: center;
     color: #333;
-    font-size: 2em;
+    font-size: 2.5em;
+    padding: 20px;
 }
 
 .order-item {
-  display: flex;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  background-color: #f9f9f9;
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo các phần tử sẽ xuống dòng nếu không đủ chỗ */
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
-.thongtin-container{
+.thongtin-container {
+    flex: 1; /* Chiếm toàn bộ chiều ngang có thể bên trái */
     padding: 20px;
     line-height: 32px;
+    min-width: 250px; /* Đảm bảo chiều rộng tối thiểu cho phần thông tin */
 }
-.order-item-detail{
-    padding: 20px;
-    line-height: 20px;
+
+.order-items {
+    flex: 1; /* Chiếm toàn bộ chiều ngang còn lại bên phải */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px; /* Khoảng cách giữa các chi tiết sản phẩm */
 }
+
+.order-item-detail {
+    width: calc(50% - 20px); /* Mỗi chi tiết sản phẩm chiếm 50% chiều rộng */
+   
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    line-height: 23px;
+}
+
+.order-item-detail img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.order-item-name {
+    width: 100%;
+  
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+   
+}
+
+
+.order-item-price,
+.order-item-quantity {
+    font-size: 1.5em;
+}
+
 .order-item h3 {
     margin-top: 0;
     color: #333;
     font-size: 3em;
 }
+
 .order-item p {
     margin-top: 0;
     color: #333;
     font-size: 2em;
 }
+
 .order-details {
     border-collapse: collapse;
     width: 100%;
@@ -75,6 +121,15 @@ h2 {
     border-radius: 5px;
     color: #155724;
 }
-.order-item-detail img{
-    width: 200px;
+
+.no-order {
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.no-order-img {
+    width: 880px;
+    margin: 0 150px;
 }

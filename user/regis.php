@@ -1,10 +1,9 @@
 <?php
 session_start();
-include_once __DIR__ . "/connectdb.php"; // Bao gồm tệp kết nối cơ sở dữ liệu
-include_once __DIR__ . "/user.php"; // Bao gồm tệp lớp User
+include_once __DIR__ . "/connectdb.php"; 
+include_once __DIR__ . "/user.php"; 
 
-// Tạo đối tượng PDO
-$pdo = new PDO('mysql:host=localhost;dbname=websport;charset=utf8', 'root', ''); // Thay đổi theo cấu hình của bạn
+$pdo = new PDO('mysql:host=localhost;dbname=websport;charset=utf8', 'root', ''); 
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $user = new User($pdo);
@@ -16,31 +15,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = $_POST['address'];
     $num = $_POST['num'];
 
-    // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+    // Kiểm tra email đã tồn tại
     $stmt = $pdo->prepare("SELECT email FROM users WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $existingEmail = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($existingEmail) {
-        // Lưu thông báo lỗi vào session và chuyển hướng về trang đăng ký với thông báo lỗi
         $_SESSION['register_error'] = "Email đã tồn tại.";
-        header("Location: /modal.php"); // Thay đổi đường dẫn đến trang đăng ký của bạn
+        header("Location: /modal.php?form=register");
         exit();
     } else {
-        // Xử lý đăng ký
+        // Đăng ký tài khoản mới
         $registerSuccess = $user->register($name, $password, $email, $address, $num);
 
         if ($registerSuccess) {
             $_SESSION['user_name'] = $name;
-            $_SESSION['user_id'] = $user->getUserId($email); // Lấy user_id từ email
-            $_SESSION['user_role'] = 'user'; // Tự động gán vai trò 'user'
+            $_SESSION['user_id'] = $user->getUserId($email);
+            $_SESSION['user_role'] = 'user';
 
-            header("Location: /index.php"); // Chuyển hướng về trang chính hoặc trang hiện tại
+            header("Location: /index.php");
             exit();
         } else {
             $_SESSION['register_error'] = "Đăng ký không thành công. Vui lòng thử lại.";
-            header("Location: /modal.php"); // Thay đổi đường dẫn đến trang đăng ký của bạn
+            header("Location: /modal.php?form=register");
             exit();
         }
     }

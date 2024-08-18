@@ -75,7 +75,8 @@ $orders = $orderClass->get_orders_by_user_id($user_id);
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>Hiện tại bạn không có đơn hàng nào.</p>
+            <p class="no-order">Hiện tại bạn không có đơn hàng nào.</p>
+            <img class="no-order-img" src="https://theme.hstatic.net/1000388352/1000504573/14/empty_cart.png?v=393" alt="">
         <?php endif; ?>
     </div>
 </body>
