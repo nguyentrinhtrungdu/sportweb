@@ -1,16 +1,23 @@
 <?php
+session_start();
 ob_start();
+include_once __DIR__ . "/cart_item.php"; // Include the CartItem class
 include_once __DIR__ . "/admin/class/category_class.php";
 include_once __DIR__ . "/admin/class/brand_class.php";
+include_once __DIR__ . "/user/connectdb.php";
 
 // Initialize the user name and avatar
 $userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Khách';
 $userArt = isset($_SESSION['user_art']) ? $_SESSION['user_art'] : 'av.jpg';
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
+// Define whether the user is logged in
+$isLoggedIn = !is_null($userId);
 
-// Instantiate category and brand classes
+// Instantiate classes
 $category = new category();
 $brand = new brand();
+$cartItem = new CartItem($pdo); // Ensure this matches your class name
 
 // Fetch categories and brands
 $categories = $category->show_category();
@@ -22,23 +29,34 @@ while ($brand = $brands->fetch_assoc()) {
     $brandsByCategory[$brand['category_id']][] = $brand;
 }
 
-// Check if user is logged in and their role
-$isLoggedIn = isset($_SESSION['user_id']);
-$isAdmin = $isLoggedIn && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
-
-
+// Fetch cart items if user is logged in
+$cartItems = [];
+if ($isLoggedIn) {
+    // Fetch cart items from the database
+    $cartItems = $cartItem->getCartItems($userId);
+    $_SESSION['cart'] = $cartItems; // Store cart items in session
+} else {
+    $_SESSION['cart'] = []; // Clear cart if user is not logged in
+}
 
 // Handle removal of items from the cart
 if (isset($_GET['remove_from_cart'])) {
-    $remove_index = (int)$_GET['remove_from_cart'];
-    if (isset($_SESSION['cart'][$remove_index])) {
-        array_splice($_SESSION['cart'], $remove_index, 1);
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    }
-}
+    $product_id = (int)$_GET['remove_from_cart'];
+    if ($isLoggedIn) {
+        // Use deleteCartItem method to remove item from database
+        $cartItem->deleteCartItem($userId, $product_id);
 
-$searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'] : [];
+        // Remove item from session after deleting from database
+        foreach ($_SESSION['cart'] as $key => $item) {
+            if ($item['product_id'] == $product_id) {
+                unset($_SESSION['cart'][$key]);
+                break;
+            }
+        }
+    }
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 
 <header class="header">
@@ -135,7 +153,7 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                 </li>
             <?php else: ?>
                 <a class="dangnhap-nav" href="modal.php">
-                    Đăng nhập
+                    <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
                 </a>
             <?php endif; ?>
         </ul>
@@ -166,27 +184,27 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
                                                 <div class="header__cart-item-head">
                                                     <h5 class="header__cart-item-name"><?php echo htmlspecialchars($cart_item['product_name']); ?></h5>
                                                     <div class="header__cart-item-price-wrap">
-                                                        <span class="header__cart-item-price"><?php echo number_format($cart_item['product_price'], 0, ',', '.'); ?>đ</span>
-                                                        <span class="header__cart-item-multiply">x</span>
-                                                        <span class="header__cart-item-qnt"><?php echo htmlspecialchars($cart_item['quantity']); ?></span>
+                                                    <span class="header__cart-item-price"><?php echo number_format($cart_item['product_price'], 0, ',', '.'); ?>đ</span>
+                                                    <span class="header__cart-item-multiply">x</span>
+                                                    <span class="header__cart-item-qnt"><?php echo htmlspecialchars($cart_item['quantity']); ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="header__cart-item-body">
-                                                    <span class="header__cart-item-description">Size: <?php echo htmlspecialchars($cart_item['size']); ?></span>
-                                                    <span class="header__cart-item-remove">
-                                                        <a href="?remove_from_cart=<?php echo $key; ?>">Xóa</a>
-                                                    </span>
-                                                </div>
+                                                <span class="header__cart-item-description">Size: <?php echo htmlspecialchars($cart_item['size']); ?></span>
+                                                <span class="header__cart-item-remove">
+                                                  <a href="?remove_from_cart=<?php echo (int)$cart_item['product_id']; ?>" >Xóa</a>
+                                                </span>         
                                             </div>
+                                    </div>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
                                 <a href="thanhtoan.php" class="header__cart-view-cart btn btn--primary">Thanh toán</a>
-                            <?php else: ?>
-                                <div class="header__cart-list header__cart-list--no-cart">
-                                    <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
-                                    <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
-                                </div>
+                                    <?php else: ?>
+                                        <div class="header__cart-list header__cart-list--no-cart">
+                                            <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="header__cart-no-cart-img">
+                                            <p class="header__cart-list-no-cart-msg">Hiện tại không có sản phẩm</p>
+                                        </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -196,29 +214,34 @@ $searchHistory = isset($_SESSION['search_history']) ? $_SESSION['search_history'
     </nav>
 </header>
 
-<!-- JavaScript for search history -->
+<!-- JavaScript for search input -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search-input');
     const searchHistory = document.getElementById('search-history');
     const searchBtn = document.getElementById('search-btn');
 
-    // Function to perform search
-    function performSearch() {
+    searchInput.addEventListener('input', function () {
+        const query = this.value;
+        if (query.length > 0) {
+            fetch(`search_history.php?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    let html = '';
+                    data.forEach(item => {
+                        html += `<div class="header__search-history-item">${item}</div>`;
+                    });
+                    searchHistory.innerHTML = html;
+                });
+        } else {
+            searchHistory.innerHTML = '';
+        }
+    });
+
+    searchBtn.addEventListener('click', function () {
         const query = searchInput.value;
         if (query.length > 0) {
-            window.location.href = `search_results.php?q=${encodeURIComponent(query)}`;
-        }
-    }
-
-    // Event listener for search button click
-    searchBtn.addEventListener('click', performSearch);
-
-    // Event listener for Enter key press
-    searchInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent default form submission
-            performSearch();
+            window.location.href = `search.php?q=${encodeURIComponent(query)}`;
         }
     });
 });

@@ -1,8 +1,9 @@
 <?php
 session_start();
-include __DIR__ . "/user/user.php";
-include __DIR__ . "/admin/class/order_class.php";
-include __DIR__ . '/user/connectdb.php'; // Bao gồm tệp kết nối cơ sở dữ liệu
+include_once __DIR__ . "/user/user.php";
+include_once __DIR__ . "/admin/class/order_class.php";
+include_once __DIR__ . '/user/connectdb.php'; // Bao gồm tệp kết nối cơ sở dữ liệu
+include_once __DIR__ . '/cart_item.php'; // Bao gồm lớp CartItem
 
 // Tạo đối tượng PDO
 try {
@@ -32,28 +33,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $descr = htmlspecialchars($_POST['order_notes']); 
 
                 $orderClass = new Order($pdo); // Truyền đối tượng PDO vào khởi tạo Order
+                $cartItemClass = new CartItem($pdo); // Truyền đối tượng PDO vào khởi tạo CartItem
 
                 try {
                     $order_id = $orderClass->create_order($user_id, $user_name, $address, $total, $descr);
 
                     foreach ($_SESSION['cart'] as $item) {
                         $orderClass->add_order_item($order_id, $item['product_id'], $item['product_name'], $item['product_img'], $item['product_price'], $item['quantity']);
+                        // Xóa từng sản phẩm khỏi giỏ hàng
+                        $cartItemClass->deleteCartItem($user_id, $item['product_id']);
                     }
 
+                    // Xóa giỏ hàng trong session
                     unset($_SESSION['cart']);
 
                     header("Location: paysuccess.php?order_id=" . $order_id);
                     exit();
                 } catch (Exception $e) {
-                    echo "An error occurred while processing your order: " . $e->getMessage();
+                    error_log("Lỗi khi xử lý đơn hàng: " . $e->getMessage());
+                    echo "Đã xảy ra lỗi khi xử lý đơn hàng của bạn. Vui lòng thử lại.";
                 }
             } else {
-                echo "User information not found.";
+                echo "Thông tin người dùng không được tìm thấy.";
                 exit();
             }
         }
     } else {
-        echo "Your cart is empty.";
+        echo "Giỏ hàng của bạn đang trống.";
     }
 }
 ?>
@@ -115,9 +121,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </form>
         <?php else: ?>
+           
             <p>Giỏ hàng của bạn trống.</p>
+            <img src="./assets/img/header/empty_cart.webp" alt="No products in cart" class="donhangimg">
         <?php endif; ?>
     </div>
-
 </body>
 </html>

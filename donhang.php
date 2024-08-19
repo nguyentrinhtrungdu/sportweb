@@ -3,22 +3,25 @@ session_start();
 ob_start();
 include("./header.php");
 include_once __DIR__ . "/admin/class/product_class.php";
+include_once __DIR__ . "/user/connectdb.php";
+include_once __DIR__ . "/cart_item.php";
 
-// Check if user is logged in
+$cartItem = new CartItem($pdo);
+
+// Kiểm tra nếu người dùng đã đăng nhập
 $is_logged_in = isset($_SESSION['user_id']);
 
-// Handle remove item from cart
+// Xử lý xóa sản phẩm khỏi giỏ hàng
 if (isset($_GET['remove_from_cart'])) {
     $remove_index = (int)$_GET['remove_from_cart'];
     if (isset($_SESSION['cart'][$remove_index])) {
         array_splice($_SESSION['cart'], $remove_index, 1);
-        // Redirect to avoid resubmission on page refresh
-        header("Location: " . $_SERVER['PHP_SELF']);
+        header("Location: donhang.php"); // Điều hướng về trang giỏ hàng
         exit();
     }
 }
 
-// Fetch product details
+// Lấy thông tin sản phẩm
 $productClass = new product();
 $product_id = isset($_GET['product_id']) ? (int)$_GET['product_id'] : 1;
 $all_products = $productClass->show_product();
@@ -31,52 +34,46 @@ while ($p = $all_products->fetch_assoc()) {
     }
 }
 
-// Handle add to cart action
+// Xử lý hành động thêm vào giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($product) {
-        $size = $_POST['size'] ?? null;
+        $size = $_POST['size'] ?? 'Unknown'; // Cung cấp giá trị mặc định cho kích thước
         $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
-        $cart_item = [
-            'product_id' => $product['product_id'],
-            'product_name' => $product['product_name'],
-            'product_img' => $product['product_img'],
-            'product_price' => $product['product_price'],
-            'size' => $size,
-            'quantity' => $quantity,
-        ];
+        $user_id = $_SESSION['user_id'] ?? null;
 
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
-
-        $exists = false;
-        foreach ($_SESSION['cart'] as &$item) {
-            if ($item['product_id'] == $product['product_id'] && $item['size'] == $size) {
-                $item['quantity'] += $quantity;
-                $exists = true;
-                break;
-            }
-        }
-        if (!$exists) {
-            $_SESSION['cart'][] = $cart_item;
-        }
-
-        if (isset($_POST['buy_now'])) {
-            if ($is_logged_in) {
-                header("Location: thanhtoan.php");
-                exit();
+        if ($user_id) {
+            // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
+            $existingItem = $cartItem->checkIfExists($user_id, $product['product_id']);
+            
+            if ($existingItem) {
+                // Cập nhật số lượng nếu sản phẩm đã có
+                $cartItem->updateCartItem($user_id, $product['product_id'], $existingItem['quantity'] + $quantity);
             } else {
-                header("Location: modal.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
+                // Thêm sản phẩm vào giỏ hàng nếu chưa có
+                $cartItem->addCartItem($user_id, $product['product_id'], $quantity, $size);
+            }
+
+            // Điều hướng sau khi thêm vào giỏ hàng hoặc mua ngay
+            if (isset($_POST['buy_now'])) {
+                if ($is_logged_in) {
+                    header("Location: thanhtoan.php");
+                    exit();
+                } else {
+                    header("Location: modal.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
+                    exit();
+                }
+            } else {
+                header("Location: " . $_SERVER['REQUEST_URI']);
                 exit();
             }
         } else {
-            header("Location: " . $_SERVER['REQUEST_URI']);
+            // Xử lý trường hợp người dùng chưa đăng nhập
+            header("Location: modal.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
             exit();
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,30 +118,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span><?php echo number_format($product['product_price'], 0, ',', '.'); ?>đ</span>
                 </div>
                 <form method="post" action="">
-                <?php
-                $showSizeOptions = false;
+                    <?php
+                    $showSizeOptions = false;
+                    if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "THƯƠNG HIỆU") {
+                        $showSizeOptions = true;
+                    }
+                    ?>
 
-                if ($product['brand_name'] === "GĂNG TAY" || $product['category_name'] === "THƯƠNG HIỆU") {
-                    $showSizeOptions = true;
-                }
-                ?>
-
-                <?php if ($showSizeOptions): ?>
-                    <label for="size">Chọn kích thước:</label>
-                    <select name="size" id="size">
-                        <?php 
-                        if ($product['brand_name'] === "GĂNG TAY") {
-                            for ($size = 6; $size <= 10; $size++): ?>
-                                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
-                            <?php endfor;
-                        } else if ($product['category_name'] === "THƯƠNG HIỆU") {
-                            for ($size = 39; $size <= 43; $size++): ?>
-                                <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
-                            <?php endfor;
-                        }
-                        ?>
-                    </select>
-                <?php endif; ?>
+                    <?php if ($showSizeOptions): ?>
+                        <label for="size">Chọn kích thước:</label>
+                        <select name="size" id="size">
+                            <?php 
+                            if ($product['brand_name'] === "GĂNG TAY") {
+                                for ($size = 6; $size <= 10; $size++): ?>
+                                    <option value="<?php echo htmlspecialchars($size); ?>"><?php echo htmlspecialchars($size); ?></option>
+                                <?php endfor;
+                            } else if ($product['category_name'] === "THƯƠNG HIỆU") {
+                                for ($size = 39; $size <= 43; $size++): ?>
+                                    <option value="<?php echo htmlspecialchars($size); ?>"><?php echo htmlspecialchars($size); ?></option>
+                                <?php endfor;
+                            }
+                            ?>
+                        </select>
+                    <?php endif; ?>
 
                     <div class="product-detail__quantity">
                         <label for="quantity">Số lượng:</label>

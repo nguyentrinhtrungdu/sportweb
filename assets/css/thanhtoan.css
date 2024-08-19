@@ -10,9 +10,18 @@
 
 .cart-container h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
+.cart-container p {
+    text-align: center;
+    
+    font-size: 1.5em;
+}
+.donhangimg{
+margin: 0 230px;
+    width: 300px;
+}
 .cart-item {
     display: flex;
     align-items: center;
